@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
+import 'package:movies_flutter/feat/browse/presentation/widgets/category_item.dart';
 
 class BrowseScreen extends StatefulWidget {
   const BrowseScreen({super.key});
@@ -13,6 +14,27 @@ class _BrowseScreenState extends State<BrowseScreen>
     with SingleTickerProviderStateMixin {
   // late final _tabController;
   int selectedIndex = 0;
+  final Set<String> genresList = {
+    'Action',
+    'Adventure',
+    'Crime',
+    'Documentary',
+    'Animation',
+    'Fantasy',
+    'Comedy',
+    'Drama',
+    'Sport',
+    'Horror',
+    'Music',
+    'Musical',
+    'Sci-Fi',
+    'Western',
+    'Mystery',
+    'Romance',
+    'Anime',
+    'Family',
+    'Thriller',
+  };
 
   @override
   void initState() {
@@ -33,25 +55,18 @@ class _BrowseScreenState extends State<BrowseScreen>
             },
             itemBuilder: (context, index) {
               return Center(
-                child: InkWell(
-                  onTap: () {
+                child: CategoryItem(
+                  onItemTapped: () {
                     setState(() {
                       selectedIndex = index;
                     });
                   },
-                  child: Text(
-                    "data",
-                    style: TextStyle(
-                      color:
-                          (selectedIndex == index)
-                              ? Colors.redAccent
-                              : Colors.white,
-                    ),
-                  ),
+                  genreName: genresList.elementAt(index),
+                  isSelectedItem: selectedIndex == index,
                 ),
               );
             },
-            itemCount: 50,
+            itemCount: genresList.length,
             scrollDirection: Axis.horizontal,
           ),
         ),
