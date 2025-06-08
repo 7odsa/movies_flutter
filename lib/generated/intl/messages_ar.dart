@@ -22,13 +22,51 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "create_one": MessageLookupByLibrary.simpleMessage("Create One"),
-    "email": MessageLookupByLibrary.simpleMessage("Email"),
-    "forget_password": MessageLookupByLibrary.simpleMessage("Forget Password"),
-    "login": MessageLookupByLibrary.simpleMessage("تسجيل دخول"),
-    "login_with_google": MessageLookupByLibrary.simpleMessage(
-      "Login with Google",
+    "already_have_account": MessageLookupByLibrary.simpleMessage(
+      "لديك حساب بالفعل؟",
     ),
-    "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "available_now": MessageLookupByLibrary.simpleMessage("متاح الآن"),
+    "back": MessageLookupByLibrary.simpleMessage("السابق"),
+    "cast": MessageLookupByLibrary.simpleMessage("طاقم التمثيل"),
+    "confirm_password": MessageLookupByLibrary.simpleMessage(
+      "تأكيد كلمة المرور",
+    ),
+    "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "create_one": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+    "edit_profile": MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
+    "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "exit": MessageLookupByLibrary.simpleMessage("خروج"),
+    "explore_now": MessageLookupByLibrary.simpleMessage("استكشف الآن"),
+    "finish": MessageLookupByLibrary.simpleMessage("إنهاء"),
+    "forget_password": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور"),
+    "genres": MessageLookupByLibrary.simpleMessage("التصنيفات"),
+    "history": MessageLookupByLibrary.simpleMessage("السجل"),
+    "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "login_with_google": MessageLookupByLibrary.simpleMessage(
+      "تسجيل الدخول عبر جوجل",
+    ),
+    "name": MessageLookupByLibrary.simpleMessage("الاسم"),
+    "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "phone_number": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+    "pick_avatar": MessageLookupByLibrary.simpleMessage("اختر صورة رمزية"),
+    "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
+    "reset_password": MessageLookupByLibrary.simpleMessage(
+      "إعادة تعيين كلمة المرور",
+    ),
+    "screen_shots": MessageLookupByLibrary.simpleMessage("لقطات الشاشة"),
+    "search": MessageLookupByLibrary.simpleMessage("بحث"),
+    "see_more": MessageLookupByLibrary.simpleMessage("المزيد"),
+    "similar": MessageLookupByLibrary.simpleMessage("متشابه"),
+    "summary": MessageLookupByLibrary.simpleMessage("ملخص"),
+    "update_data": MessageLookupByLibrary.simpleMessage("تحديث البيانات"),
+    "verify_email": MessageLookupByLibrary.simpleMessage(
+      "تحقق من البريد الإلكتروني",
+    ),
+    "watch": MessageLookupByLibrary.simpleMessage("مشاهدة"),
+    "watch_list": MessageLookupByLibrary.simpleMessage("قائمة المشاهدة"),
+    "watch_now": MessageLookupByLibrary.simpleMessage("شاهد الآن"),
   };
 }
