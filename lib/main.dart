@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movies_flutter/feat/search/presentation/screens/search_screen.dart';
+import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
 
 import 'package:movies_flutter/generated/l10n.dart';
 
@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: SearchScreen(),
+            child: BrowseScreen(),
           ),
         ),
       ),
