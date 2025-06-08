@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
+import 'package:movies_flutter/generated/l10n.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -12,37 +14,17 @@ class SearchScreen extends StatelessWidget {
       children: [
         TextField(
           decoration: InputDecoration(
+            filled: true,
+            fillColor: ColorsApp.darkGreen,
+            hintText: S.of(context).search,
+            // TODO
             prefixIcon: Image.asset("assets/search_icon.png"),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-            contentPadding: EdgeInsets.all(4),
+            contentPadding: EdgeInsets.only(top: 4, left: 4, right: 4),
           ),
         ),
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 9 / 12,
-            ),
-            itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.only(
-                  right: (index % 2 == 0) ? 2 : 0,
-                  left: (index % 2 != 0) ? 2 : 0,
-                ),
-                color: ColorsApp.red,
-                child: new Card(
-                  child: new GridTile(
-                    footer: new Text(index.toString()),
-                    child: new Text(
-                      index.toString(),
-                    ), //just for testing, will fill with image later
-                  ),
-                ),
-              );
-            },
-            itemCount: 23,
-          ),
-        ),
+        SizedBox(height: 4),
+        Expanded(child: MoviesItemsList(numOfTiles: 2)),
       ],
     );
   }
