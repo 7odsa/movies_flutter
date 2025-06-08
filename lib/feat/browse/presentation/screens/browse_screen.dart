@@ -15,16 +15,11 @@ class _BrowseScreenState extends State<BrowseScreen>
     with SingleTickerProviderStateMixin {
   // late final _tabController;
   int selectedIndex = 0;
-
+  late final Set<String> _genresList;
   @override
   void initState() {
     // _tabController = TabController(length: 3, vsync: this);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final Set<String> genresList = {
+    _genresList = {
       S.of(context).action,
       S.of(context).adventure,
       S.of(context).animation,
@@ -45,6 +40,12 @@ class _BrowseScreenState extends State<BrowseScreen>
       S.of(context).sci_fi,
       S.of(context).western,
     };
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -62,12 +63,12 @@ class _BrowseScreenState extends State<BrowseScreen>
                       selectedIndex = index;
                     });
                   },
-                  genreName: genresList.elementAt(index),
+                  genreName: _genresList.elementAt(index),
                   isSelectedItem: selectedIndex == index,
                 ),
               );
             },
-            itemCount: genresList.length,
+            itemCount: _genresList.length,
             scrollDirection: Axis.horizontal,
           ),
         ),
