@@ -26,6 +26,7 @@ class CategoryItem extends StatelessWidget {
         child: Text(
           genreName,
           style: TextStyle(
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: (isSelectedItem) ? ColorsApp.black : ColorsApp.yellow,
           ),

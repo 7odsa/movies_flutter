@@ -17,23 +17,23 @@ class _BrowseScreenState extends State<BrowseScreen>
   final Set<String> genresList = {
     'Action',
     'Adventure',
+    'Animation',
+    'Anime',
+    'Comedy',
     'Crime',
     'Documentary',
-    'Animation',
-    'Fantasy',
-    'Comedy',
     'Drama',
+    'Family',
+    'Fantasy',
     'Sport',
     'Horror',
     'Music',
+    'Thriller',
     'Musical',
-    'Sci-Fi',
-    'Western',
     'Mystery',
     'Romance',
-    'Anime',
-    'Family',
-    'Thriller',
+    'Sci-Fi',
+    'Western',
   };
 
   @override
@@ -71,6 +71,7 @@ class _BrowseScreenState extends State<BrowseScreen>
           ),
         ),
         SizedBox(height: 4),
+        // TODO
         Expanded(child: MoviesItemsList(numOfTiles: 2)),
       ],
     );
