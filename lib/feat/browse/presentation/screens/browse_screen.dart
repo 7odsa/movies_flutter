@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
 import 'package:movies_flutter/feat/browse/presentation/widgets/category_item.dart';
+import 'package:movies_flutter/generated/l10n.dart';
 
 class BrowseScreen extends StatefulWidget {
   const BrowseScreen({super.key});
@@ -14,27 +15,6 @@ class _BrowseScreenState extends State<BrowseScreen>
     with SingleTickerProviderStateMixin {
   // late final _tabController;
   int selectedIndex = 0;
-  final Set<String> genresList = {
-    'Action',
-    'Adventure',
-    'Animation',
-    'Anime',
-    'Comedy',
-    'Crime',
-    'Documentary',
-    'Drama',
-    'Family',
-    'Fantasy',
-    'Sport',
-    'Horror',
-    'Music',
-    'Thriller',
-    'Musical',
-    'Mystery',
-    'Romance',
-    'Sci-Fi',
-    'Western',
-  };
 
   @override
   void initState() {
@@ -44,6 +24,27 @@ class _BrowseScreenState extends State<BrowseScreen>
 
   @override
   Widget build(BuildContext context) {
+    final Set<String> genresList = {
+      S.of(context).action,
+      S.of(context).adventure,
+      S.of(context).animation,
+      S.of(context).anime,
+      S.of(context).comedy,
+      S.of(context).crime,
+      S.of(context).documentary,
+      S.of(context).drama,
+      S.of(context).family,
+      S.of(context).fantasy,
+      S.of(context).sport,
+      S.of(context).horror,
+      S.of(context).music,
+      S.of(context).thriller,
+      S.of(context).musical,
+      S.of(context).mystery,
+      S.of(context).romance,
+      S.of(context).sci_fi,
+      S.of(context).western,
+    };
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
