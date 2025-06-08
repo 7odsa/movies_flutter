@@ -95,6 +95,206 @@ class S {
       args: [],
     );
   }
+
+  /// `Explore Now`
+  String get explore_now {
+    return Intl.message('Explore Now', name: 'explore_now', desc: '', args: []);
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message('Next', name: 'next', desc: '', args: []);
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message('Back', name: 'back', desc: '', args: []);
+  }
+
+  /// `Finish`
+  String get finish {
+    return Intl.message('Finish', name: 'finish', desc: '', args: []);
+  }
+
+  /// `Watch`
+  String get watch {
+    return Intl.message('Watch', name: 'watch', desc: '', args: []);
+  }
+
+  /// `Screen Shots`
+  String get screen_shots {
+    return Intl.message(
+      'Screen Shots',
+      name: 'screen_shots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Similar`
+  String get similar {
+    return Intl.message('Similar', name: 'similar', desc: '', args: []);
+  }
+
+  /// `Summary`
+  String get summary {
+    return Intl.message('Summary', name: 'summary', desc: '', args: []);
+  }
+
+  /// `Cast`
+  String get cast {
+    return Intl.message('Cast', name: 'cast', desc: '', args: []);
+  }
+
+  /// `Genres`
+  String get genres {
+    return Intl.message('Genres', name: 'genres', desc: '', args: []);
+  }
+
+  /// `Edit Profile`
+  String get edit_profile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exit`
+  String get exit {
+    return Intl.message('Exit', name: 'exit', desc: '', args: []);
+  }
+
+  /// `Watch List`
+  String get watch_list {
+    return Intl.message('Watch List', name: 'watch_list', desc: '', args: []);
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message('History', name: 'history', desc: '', args: []);
+  }
+
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Data`
+  String get update_data {
+    return Intl.message('Update Data', name: 'update_data', desc: '', args: []);
+  }
+
+  /// `Reset Password`
+  String get reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message('Search', name: 'search', desc: '', args: []);
+  }
+
+  /// `Available Now`
+  String get available_now {
+    return Intl.message(
+      'Available Now',
+      name: 'available_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Watch Now`
+  String get watch_now {
+    return Intl.message('Watch Now', name: 'watch_now', desc: '', args: []);
+  }
+
+  /// `See More`
+  String get see_more {
+    return Intl.message('See More', name: 'see_more', desc: '', args: []);
+  }
+
+  /// `Or`
+  String get or {
+    return Intl.message('Or', name: 'or', desc: '', args: []);
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message('Name', name: 'name', desc: '', args: []);
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message('Register', name: 'register', desc: '', args: []);
+  }
+
+  /// `Verify Email`
+  String get verify_email {
+    return Intl.message(
+      'Verify Email',
+      name: 'verify_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have Account?`
+  String get already_have_account {
+    return Intl.message(
+      'Already have Account?',
+      name: 'already_have_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirm_password {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phone_number {
+    return Intl.message(
+      'Phone Number',
+      name: 'phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Account`
+  String get create_account {
+    return Intl.message(
+      'Create Account',
+      name: 'create_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Avatar`
+  String get pick_avatar {
+    return Intl.message('Pick Avatar', name: 'pick_avatar', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
