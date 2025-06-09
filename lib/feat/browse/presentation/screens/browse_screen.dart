@@ -15,31 +15,31 @@ class _BrowseScreenState extends State<BrowseScreen>
     with SingleTickerProviderStateMixin {
   // late final _tabController;
   int selectedIndex = 0;
-  late final Set<String> _genresList;
+  late final Set<String> _genresList = {
+    S.of(context).action,
+    S.of(context).adventure,
+    S.of(context).animation,
+    S.of(context).anime,
+    S.of(context).comedy,
+    S.of(context).crime,
+    S.of(context).documentary,
+    S.of(context).drama,
+    S.of(context).family,
+    S.of(context).fantasy,
+    S.of(context).sport,
+    S.of(context).horror,
+    S.of(context).music,
+    S.of(context).thriller,
+    S.of(context).musical,
+    S.of(context).mystery,
+    S.of(context).romance,
+    S.of(context).sci_fi,
+    S.of(context).western,
+  };
+
   @override
   void initState() {
     // _tabController = TabController(length: 3, vsync: this);
-    _genresList = {
-      S.of(context).action,
-      S.of(context).adventure,
-      S.of(context).animation,
-      S.of(context).anime,
-      S.of(context).comedy,
-      S.of(context).crime,
-      S.of(context).documentary,
-      S.of(context).drama,
-      S.of(context).family,
-      S.of(context).fantasy,
-      S.of(context).sport,
-      S.of(context).horror,
-      S.of(context).music,
-      S.of(context).thriller,
-      S.of(context).musical,
-      S.of(context).mystery,
-      S.of(context).romance,
-      S.of(context).sci_fi,
-      S.of(context).western,
-    };
 
     super.initState();
   }

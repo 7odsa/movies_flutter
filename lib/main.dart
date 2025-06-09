@@ -12,14 +12,39 @@ void main() {
 
   Di.setupDependancyInjection();
 
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+  int selectedIcon = 0;
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
+
+    List<Widget> btmNavIcons = [
+      ImageIcon(
+        AssetImage("assets/home_icon.png"),
+        color: Colors.red,
+        size: 24,
+      ),
+      ImageIcon(
+        AssetImage("assets/search_icon.png"),
+        color: Colors.red,
+        size: 24,
+      ),
+      ImageIcon(
+        AssetImage("assets/browse_icon.png"),
+        color: Colors.red,
+        size: 24,
+      ),
+      ImageIcon(
+        AssetImage("assets/profile_icon.png"),
+        color: Colors.red,
+        size: 24,
+      ),
+    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
@@ -40,9 +65,31 @@ class MainApp extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: BrowseScreen(),
+            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+            child: Stack(
+              children: [BrowseScreen(), buildFloatedNavBar(btmNavIcons)],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Positioned buildFloatedNavBar(List<Widget> btmNavIcons) {
+    return Positioned(
+      bottom: 4,
+      left: 0,
+      right: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorsApp.darkGreen,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        // !Todo Try Tab bar here
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: btmNavIcons,
         ),
       ),
     );
