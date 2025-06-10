@@ -23,4 +23,3 @@ class MoviesItemsList extends StatelessWidget {
     );
   }
 }
-// asdsad
