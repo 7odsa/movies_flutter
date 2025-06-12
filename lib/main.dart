@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
+import 'package:movies_flutter/feat/auth/presentation/widgets/login.dart';
+// import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
 
 import 'package:movies_flutter/generated/l10n.dart';
-
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/di/di.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
 
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
   Di.setupDependancyInjection();
 
   runApp(const MainApp());
@@ -37,14 +38,15 @@ class MainApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: SafeArea(
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: BrowseScreen(),
-          ),
-        ),
-      ),
+      home: Login(),
+      // SafeArea(
+      //   child: Scaffold(
+      //     body: Padding(
+      //       padding: const EdgeInsets.all(16.0),
+      //       child: BrowseScreen(),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
