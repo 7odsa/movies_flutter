@@ -19,10 +19,10 @@ class _NavScreenState extends State<NavScreen> {
 
   // TODO: adding screens when finished
   Map<String, Widget> iconsScreenMap = {
-    Navicons.home: BrowseScreen(),
+    Navicons.home: SearchScreen(),
     Navicons.search: SearchScreen(),
-    Navicons.browse: BrowseScreen(),
-    Navicons.profile: BrowseScreen(),
+    Navicons.browse: BrowseScreen(key: UniqueKey()),
+    Navicons.profile: BrowseScreen(key: UniqueKey(), genreName: "anime"),
   };
 
   @override
