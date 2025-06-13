@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_flutter/feat/auth/presentation/widgets/forget_password.dart';
-import 'package:movies_flutter/feat/auth/presentation/widgets/register.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movies_flutter/feat/auth/presentation/check_email.dart';
+import 'package:movies_flutter/feat/auth/presentation/forget_password.dart';
+import 'package:movies_flutter/feat/auth/presentation/register.dart';
+import 'package:movies_flutter/feat/auth/presentation/widgets/show_flushbar.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,9 +17,47 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
-
+  bool loading = false;
   bool passwordObscured = true;
   bool isArabic = false;
+
+  Future signIn() async {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        setState(() {
+          loading = false;
+        });
+        showSuccess("Successfully Logged In", context);
+      } catch (e) {
+        setState(() {
+          loading = false;
+        });
+        showError(e.toString(), context);
+      }
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      showSuccess("Successfully Logged In with Google", context);
+    } catch (e) {
+      showError(e.toString(), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +68,20 @@ class _LoginState extends State<Login> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
-              Image.asset(
-                "assets/login_image.png",
-                height: 300,
-              ),
+              Image.asset("assets/login_image.png", height: 300),
               TextFormField(
+                controller: emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your email";
+                  } else if (value.isValidEmail == false) {
+                    return "Invalid email";
+                  }
+                  return null;
+                },
+                autofillHints: const [AutofillHints.email],
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -46,9 +97,16 @@ class _LoginState extends State<Login> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                // style: Theme.of(context).textTheme.bodyLarge,
-                // cursorColor: Theme.of(context).primaryColor,
+                controller: passwordController,
                 obscureText: passwordObscured,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your password";
+                  } else if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -62,15 +120,12 @@ class _LoginState extends State<Login> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        passwordObscured == true
-                            ? passwordObscured = false
-                            : passwordObscured = true;
+                        passwordObscured = !passwordObscured;
                       });
                     },
-                    icon:
-                        passwordObscured == true
-                            ? Icon(Icons.visibility)
-                            : Icon(Icons.visibility_off),
+                    icon: passwordObscured
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off),
                   ),
                   hintText: 'Password',
                 ),
@@ -97,7 +152,7 @@ class _LoginState extends State<Login> {
               ),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () {},
+                onPressed: loading ? null : signIn,
                 style: FilledButton.styleFrom(
                   backgroundColor: Color(0xffF6BD00),
                   shape: RoundedRectangleBorder(
@@ -106,17 +161,15 @@ class _LoginState extends State<Login> {
                   ),
                   padding: EdgeInsets.all(15),
                 ),
-                child: Text('Login', style: TextStyle(fontSize: 20)),
+                child: loading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text('Login', style: TextStyle(fontSize: 20)),
               ),
-
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Don\'t Have Account?',
-                    // style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  Text('Don\'t Have Account?'),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -153,7 +206,7 @@ class _LoginState extends State<Login> {
               ),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () {},
+                onPressed: signInWithGoogle,
                 style: FilledButton.styleFrom(
                   backgroundColor: Color(0xffF6BD00),
                   shape: RoundedRectangleBorder(
@@ -183,13 +236,12 @@ class _LoginState extends State<Login> {
                   spacing: 15,
                   children: [
                     GestureDetector(
-                      onTap:
-                          () => setState(() {
-                            isArabic = false;
-                          }),
+                      onTap: () => setState(() {
+                        isArabic = false;
+                      }),
                       child: CircleAvatar(
                         backgroundColor:
-                            !isArabic ? Color(0xffF6BD00) : Colors.transparent,
+                        !isArabic ? Color(0xffF6BD00) : Colors.transparent,
                         child: CircleAvatar(
                           backgroundImage: AssetImage('assets/USA.png'),
                           radius: 16,
@@ -197,13 +249,12 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     GestureDetector(
-                      onTap:
-                          () => setState(() {
-                            isArabic = true;
-                          }),
+                      onTap: () => setState(() {
+                        isArabic = true;
+                      }),
                       child: CircleAvatar(
                         backgroundColor:
-                            isArabic ? Color(0xffF6BD00) : Colors.transparent,
+                        isArabic ? Color(0xffF6BD00) : Colors.transparent,
                         child: CircleAvatar(
                           backgroundImage: AssetImage('assets/EG.png'),
                           radius: 16,

@@ -1,6 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_flutter/feat/auth/presentation/widgets/login.dart';
+import 'package:movies_flutter/feat/auth/presentation/check_email.dart';
+import 'package:movies_flutter/feat/auth/presentation/login.dart';
+import 'package:movies_flutter/feat/auth/presentation/widgets/show_flushbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -15,8 +19,9 @@ class _RegisterState extends State<Register> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey();
 
+  GlobalKey<FormState> formKey = GlobalKey();
+  bool loading = false;
   bool passwordObscured = true;
   bool confirmPasswordObscured = true;
   bool isArabic = false;
@@ -34,6 +39,65 @@ class _RegisterState extends State<Register> {
   ];
 
   int selectedIndex = 0;
+
+  Future signUp() async {
+    if (formKey.currentState!.validate()) {
+      if (passwordController.text != confirmPasswordController.text) {
+        showError("Passwords do not match", context);
+        return;
+      }
+
+      setState(() {
+        loading = true;
+      });
+
+      try {
+        final signInMethods = await FirebaseAuth.instance
+            .fetchSignInMethodsForEmail(emailController.text);
+        if (signInMethods.isNotEmpty) {
+          setState(() {
+            loading = false;
+          });
+          showError("This email is already in use", context);
+          return;
+        }
+
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+        await userCredential.user!.updateDisplayName(nameController.text);
+        await userCredential.user!.updatePhotoURL(avatars[selectedIndex]);
+
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
+              "name": nameController.text,
+              "email": emailController.text,
+              "phone": phoneController.text,
+              "photo": avatars[selectedIndex],
+              "uid": FirebaseAuth.instance.currentUser!.uid,
+            });
+
+        setState(() {
+          loading = false;
+        });
+        showSuccess("Successfully Registered", context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+      } catch (e) {
+        setState(() {
+          loading = false;
+        });
+        showError(e.toString(), context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double itemWidth = MediaQuery.of(context).size.width / 3;
@@ -73,12 +137,19 @@ class _RegisterState extends State<Register> {
                   itemCount: avatars.length,
                   itemBuilder: (context, index, realIndex) {
                     bool isSelected = index == selectedIndex;
-                    return Container(
-                      width: itemWidth,
-                      alignment: Alignment.center,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage(avatars[index]),
-                        radius: isSelected ? 50 : 40,
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      child: Container(
+                        width: itemWidth,
+                        alignment: Alignment.center,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage(avatars[index]),
+                          radius: isSelected ? 50 : 40,
+                        ),
                       ),
                     );
                   },
@@ -99,6 +170,12 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: nameController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your name";
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -114,7 +191,21 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: emailController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your email";
+                  } else if (value.isValidEmail == false) {
+                    return "Invalid email";
+                  }
+                  return null;
+                },
+                autofillHints: const [
+                  AutofillHints.email,
+                  AutofillHints.password,
+                ],
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -132,6 +223,14 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 controller: passwordController,
                 obscureText: passwordObscured,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your password";
+                  } else if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -160,6 +259,14 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 controller: confirmPasswordController,
                 obscureText: confirmPasswordObscured,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please confirm your password";
+                  } else if (value != passwordController.text) {
+                    return "Passwords do not match";
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -187,6 +294,15 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: phoneController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your phone number";
+                  } else if (!RegExp(r'^[0-9]{11}$').hasMatch(value)) {
+                    return "Invalid phone number (11 digits required)";
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xff282A28),
@@ -202,7 +318,7 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () {},
+                onPressed: loading ? null : signUp,
                 style: FilledButton.styleFrom(
                   backgroundColor: Color(0xffF6BD00),
                   shape: RoundedRectangleBorder(
@@ -211,7 +327,13 @@ class _RegisterState extends State<Register> {
                   ),
                   padding: EdgeInsets.all(15),
                 ),
-                child: Text('Create Account', style: TextStyle(fontSize: 20)),
+                child:
+                    loading
+                        ? CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                          'Create Account',
+                          style: TextStyle(fontSize: 20),
+                        ),
               ),
               const SizedBox(height: 16),
               Row(
