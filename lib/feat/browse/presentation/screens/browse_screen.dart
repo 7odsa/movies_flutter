@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies_flutter/_core/constants/genre_list.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
 import 'package:movies_flutter/feat/browse/presentation/widgets/category_item.dart';
-import 'package:movies_flutter/generated/l10n.dart';
 
 class BrowseScreen extends StatefulWidget {
   const BrowseScreen({super.key, this.genreName});
@@ -13,35 +13,18 @@ class BrowseScreen extends StatefulWidget {
 class _BrowseScreenState extends State<BrowseScreen>
     with SingleTickerProviderStateMixin {
   // late final _tabController;
-  String selectedGenre = "";
-  Set<String>? _genresList;
+  late String selectedGenre = "";
+  late Set<String> _genresList;
+
+  @override
+  void initState() {
+    super.initState();
+    _genresList = Genres.allKeys;
+    selectedGenre = widget.genreName ?? _genresList.elementAt(0);
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (_genresList == null) {
-      _genresList = {
-        S.of(context).action,
-        S.of(context).adventure,
-        S.of(context).animation,
-        S.of(context).anime,
-        S.of(context).comedy,
-        S.of(context).crime,
-        S.of(context).documentary,
-        S.of(context).drama,
-        S.of(context).family,
-        S.of(context).fantasy,
-        S.of(context).sport,
-        S.of(context).horror,
-        S.of(context).music,
-        S.of(context).thriller,
-        S.of(context).musical,
-        S.of(context).mystery,
-        S.of(context).romance,
-        S.of(context).sci_fi,
-        S.of(context).western,
-      };
-      selectedGenre = widget.genreName ?? _genresList!.elementAt(0);
-    }
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -56,17 +39,17 @@ class _BrowseScreenState extends State<BrowseScreen>
                 child: CategoryItem(
                   onItemTapped: () {
                     setState(() {
-                      selectedGenre = _genresList!.elementAt(index);
+                      selectedGenre = _genresList.elementAt(index);
                     });
                   },
-                  genreName: _genresList!.elementAt(index),
+                  genreName: _genresList.elementAt(index),
                   isSelectedItem:
-                      _genresList!.elementAt(index).toLowerCase() ==
+                      _genresList.elementAt(index).toLowerCase() ==
                       selectedGenre.toLowerCase(),
                 ),
               );
             },
-            itemCount: _genresList!.length,
+            itemCount: _genresList.length,
             scrollDirection: Axis.horizontal,
           ),
         ),

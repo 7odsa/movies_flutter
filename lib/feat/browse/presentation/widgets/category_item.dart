@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/feat/browse/presentation/helpers/genre_list_helpers.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
@@ -24,7 +25,7 @@ class CategoryItem extends StatelessWidget {
           color: (isSelectedItem) ? ColorsApp.yellow : Colors.transparent,
         ),
         child: Text(
-          genreName,
+          getLocalizedGenreName(context, genreName),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
