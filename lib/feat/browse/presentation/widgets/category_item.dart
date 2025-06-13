@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
-import 'package:movies_flutter/feat/browse/presentation/helpers/genre_list_helpers.dart';
+import 'package:movies_flutter/_resources/helpers/genre_list_helpers.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
