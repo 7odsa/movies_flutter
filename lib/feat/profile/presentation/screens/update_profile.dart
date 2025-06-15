@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
 import 'package:movies_flutter/feat/profile/presentation/widgets/custom_elevated_buttom.dart';
 import 'package:movies_flutter/feat/profile/presentation/widgets/custom_text_filed.dart';
+import 'package:provider/provider.dart';
+import 'package:movies_flutter/feat/profile/presentation/screens/avater_selector.dart';
+
 
 class UpdateProfile extends StatefulWidget {
   UpdateProfile({super.key});
@@ -12,18 +16,33 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  final TextEditingController nameController = TextEditingController(
-    text: 'John Safwat',
-  );
-  final TextEditingController phoneController = TextEditingController(
-    text: '01200000000',
-  );
+  late final TextEditingController nameController;
+  late final TextEditingController phoneController;
+
+  @override
+  void initState() {
+    super.initState();
+    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+    nameController = TextEditingController(text: profileProvider.userName);
+    phoneController = TextEditingController(text: profileProvider.phoneNumber);
+  }
 
   @override
   void dispose() {
     nameController.dispose();
     phoneController.dispose();
     super.dispose();
+  }
+
+  void _showAvatarSelector() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: ColorsApp.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => AvatarSelector(),
+    );
   }
 
   @override
@@ -70,9 +89,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
     );
   }
 
-  ///todo: update avatar
-  Widget buildAvatar() =>
-      CircleAvatar(radius: 75, child: Image.asset('assets/gamer (1).png'));
+  Widget buildAvatar() => Consumer<ProfileProvider>(
+    builder: (context, provider, child) => GestureDetector(
+      onTap: _showAvatarSelector,
+      child: CircleAvatar(
+        radius: 75,
+        backgroundColor: ColorsApp.gray,
+        child: Image.asset(provider.selectedAvatar),
+      ),
+    ),
+  );
 
   Widget buildNameTextField() => CustomTexFiled(
     prefixIcon: Icon(Icons.person, color: ColorsApp.white),
@@ -110,7 +136,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   Widget buildUpdateDataElevatedButton() => CustomElevatedButton(
     onClick: () {
-      Navigator.pop(context, nameController.text);
+      final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+      profileProvider.updateProfile(
+        name: nameController.text,
+        phone: phoneController.text,
+      );
+      Navigator.pop(context);
     },
     text: 'Update Data',
     textStyle: TextStyle(
@@ -123,3 +154,4 @@ class _UpdateProfileState extends State<UpdateProfile> {
     backgroundColor: ColorsApp.yellow,
   );
 }
+

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
 import 'package:movies_flutter/feat/profile/presentation/screens/profile_tap.dart';
+import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
 
 import 'package:movies_flutter/generated/l10n.dart';
 
@@ -13,7 +15,15 @@ void main() {
 
   Di.setupDependancyInjection();
 
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        // Add other providers here if needed
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

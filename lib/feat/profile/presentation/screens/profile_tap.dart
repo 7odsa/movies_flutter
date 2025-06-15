@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/app_routs.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
 import 'package:movies_flutter/feat/profile/presentation/widgets/custom_elevated_buttom.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTap extends StatefulWidget {
   const ProfileTap({super.key});
@@ -14,7 +16,6 @@ class ProfileTap extends StatefulWidget {
 class _ProfileTapState extends State<ProfileTap>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  String userName = 'John Safwat';
 
   @override
   void initState() {
@@ -32,18 +33,26 @@ class _ProfileTapState extends State<ProfileTap>
     Tab(
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.list, color: ColorsApp.yellow),
-          Text('Watch List', style: AppStyle.textTheme.bodySmall),
+          Icon(Icons.list, color: ColorsApp.yellow, size: 20),
+          SizedBox(height: 4),
+          Text('Watch List', 
+            style: AppStyle.textTheme.bodySmall?.copyWith(fontSize: 12),
+          ),
         ],
       ),
     ),
     Tab(
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.folder, color: ColorsApp.yellow),
-          Text('History', style: AppStyle.textTheme.bodySmall),
+          Icon(Icons.folder, color: ColorsApp.yellow, size: 20),
+          SizedBox(height: 4),
+          Text('History', 
+            style: AppStyle.textTheme.bodySmall?.copyWith(fontSize: 12),
+          ),
         ],
       ),
     ),
@@ -88,62 +97,65 @@ class _ProfileTapState extends State<ProfileTap>
   }
 
   Widget buildTabBar() {
-    return TabBar(
-      controller: _tabController,
-      tabs: _tabs,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      indicatorColor: ColorsApp.yellow,
-      dividerHeight: 0,
+    return Container(
+      height: 70,
+      child: TabBar(
+        controller: _tabController,
+        tabs: _tabs,
+        padding: EdgeInsets.symmetric(vertical: 5),
+        indicatorColor: ColorsApp.yellow,
+        dividerHeight: 0,
+      
+      ),
     );
   }
 
-  Widget buildProfileDetails() => Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Column(
-        mainAxisSize: MainAxisSize.min,
+  Widget buildProfileDetails() {
+    return Consumer<ProfileProvider>(
+      builder: (context, profileProvider, child) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.blue,
-            child: Image.asset('assets/gamer (1).png'),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: ColorsApp.gray,
+                child: Image.asset(profileProvider.selectedAvatar),
+              ),
+              SizedBox(height: 15),
+              Text(profileProvider.userName, style: AppStyle.textTheme.titleMedium),
+            ],
           ),
-          SizedBox(height: 15),
-          Text(userName, style: AppStyle.textTheme.titleMedium),
+          SizedBox(width: 26),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('12', style: AppStyle.textTheme.labelLarge),
+              Text('Wish List', style: AppStyle.textTheme.titleMedium),
+            ],
+          ),
+          SizedBox(width: 15),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('10', style: AppStyle.textTheme.labelLarge),
+              Text('History', style: AppStyle.textTheme.titleMedium),
+            ],
+          ),
         ],
       ),
-      SizedBox(width: 26),
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('12', style: AppStyle.textTheme.labelLarge),
-          Text('Wish List', style: AppStyle.textTheme.titleMedium),
-        ],
-      ),
-      SizedBox(width: 15),
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('10', style: AppStyle.textTheme.labelLarge),
-          Text('History', style: AppStyle.textTheme.titleMedium),
-        ],
-      ),
-    ],
-  );
+    );
+  }
 
   Widget buildElevatedButtonEditProfile() => CustomElevatedButton(
     horizontal: 26,
     vertical: 12,
     onClick: () async {
-      final updatedName = await Navigator.push(
+      await Navigator.push(
         context,
         AppRouts.updateProfile(),
       );
-      if (updatedName != null) {
-        setState(() {
-          userName = updatedName;
-        });
-      }
     },
     text: 'Edit Profile',
     textStyle: TextStyle(
