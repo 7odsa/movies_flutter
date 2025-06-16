@@ -28,7 +28,7 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onClick,
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: horizontal,
           vertical: vertical,
         ),

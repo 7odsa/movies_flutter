@@ -7,9 +7,8 @@ import 'package:movies_flutter/feat/profile/presentation/widgets/custom_text_fil
 import 'package:provider/provider.dart';
 import 'package:movies_flutter/feat/profile/presentation/screens/avater_selector.dart';
 
-
 class UpdateProfile extends StatefulWidget {
-  UpdateProfile({super.key});
+  const UpdateProfile({super.key});
 
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
@@ -22,7 +21,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   void initState() {
     super.initState();
-    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+    final profileProvider = Provider.of<ProfileProvider>(
+      context,
+      listen: false,
+    );
     nameController = TextEditingController(text: profileProvider.userName);
     phoneController = TextEditingController(text: profileProvider.phoneNumber);
   }
@@ -69,9 +71,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 16),
-              buildAvatar(),
+              Center(child: buildAvatar()),
               SizedBox(height: 35),
               buildNameTextField(),
               SizedBox(height: 16),
@@ -90,14 +93,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   Widget buildAvatar() => Consumer<ProfileProvider>(
-    builder: (context, provider, child) => GestureDetector(
-      onTap: _showAvatarSelector,
-      child: CircleAvatar(
-        radius: 75,
-        backgroundColor: ColorsApp.gray,
-        child: Image.asset(provider.selectedAvatar),
-      ),
-    ),
+    builder:
+        (context, provider, child) => GestureDetector(
+          onTap: _showAvatarSelector,
+          child: CircleAvatar(
+            radius: 75,
+            backgroundColor: ColorsApp.gray,
+            child: Image.asset(provider.selectedAvatar),
+          ),
+        ),
   );
 
   Widget buildNameTextField() => CustomTexFiled(
@@ -136,7 +140,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   Widget buildUpdateDataElevatedButton() => CustomElevatedButton(
     onClick: () {
-      final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+      final profileProvider = Provider.of<ProfileProvider>(
+        context,
+        listen: false,
+      );
       profileProvider.updateProfile(
         name: nameController.text,
         phone: phoneController.text,
@@ -154,4 +161,3 @@ class _UpdateProfileState extends State<UpdateProfile> {
     backgroundColor: ColorsApp.yellow,
   );
 }
-
