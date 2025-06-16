@@ -13,7 +13,6 @@ import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/di/di.dart';
 import 'firebase_options.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
@@ -22,7 +21,8 @@ Future<void> main() async {
     persistenceEnabled: true,
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
-  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorScreen();
+  ErrorWidget.builder =
+      (FlutterErrorDetails flutterErrorDetails) => ErrorScreen();
   runApp(const MainApp());
 }
 
