@@ -87,8 +87,7 @@ class _MainAppState extends State<MainApp> {
             home: SafeArea(
               child:
                   //  TestL10nScreen(),
-                  // NavScreen(),
-                  ProfileTap(),
+                  NavScreen(),
             ),
           );
         },
