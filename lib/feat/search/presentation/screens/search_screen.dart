@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
 import 'package:movies_flutter/generated/l10n.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+  SearchScreen({super.key});
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +13,11 @@ class SearchScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextField(
+          controller: searchController,
+          onChanged: (value) {
+            // TODO
+            print(value);
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorsApp.darkGreen,

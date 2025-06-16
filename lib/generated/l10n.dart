@@ -295,6 +295,101 @@ class S {
   String get pick_avatar {
     return Intl.message('Pick Avatar', name: 'pick_avatar', desc: '', args: []);
   }
+
+  /// `Action`
+  String get action {
+    return Intl.message('Action', name: 'action', desc: '', args: []);
+  }
+
+  /// `Adventure`
+  String get adventure {
+    return Intl.message('Adventure', name: 'adventure', desc: '', args: []);
+  }
+
+  /// `Animation`
+  String get animation {
+    return Intl.message('Animation', name: 'animation', desc: '', args: []);
+  }
+
+  /// `Anime`
+  String get anime {
+    return Intl.message('Anime', name: 'anime', desc: '', args: []);
+  }
+
+  /// `Comedy`
+  String get comedy {
+    return Intl.message('Comedy', name: 'comedy', desc: '', args: []);
+  }
+
+  /// `Crime`
+  String get crime {
+    return Intl.message('Crime', name: 'crime', desc: '', args: []);
+  }
+
+  /// `Documentary`
+  String get documentary {
+    return Intl.message('Documentary', name: 'documentary', desc: '', args: []);
+  }
+
+  /// `Drama`
+  String get drama {
+    return Intl.message('Drama', name: 'drama', desc: '', args: []);
+  }
+
+  /// `Family`
+  String get family {
+    return Intl.message('Family', name: 'family', desc: '', args: []);
+  }
+
+  /// `Fantasy`
+  String get fantasy {
+    return Intl.message('Fantasy', name: 'fantasy', desc: '', args: []);
+  }
+
+  /// `Sport`
+  String get sport {
+    return Intl.message('Sport', name: 'sport', desc: '', args: []);
+  }
+
+  /// `Horror`
+  String get horror {
+    return Intl.message('Horror', name: 'horror', desc: '', args: []);
+  }
+
+  /// `Music`
+  String get music {
+    return Intl.message('Music', name: 'music', desc: '', args: []);
+  }
+
+  /// `Thriller`
+  String get thriller {
+    return Intl.message('Thriller', name: 'thriller', desc: '', args: []);
+  }
+
+  /// `Musical`
+  String get musical {
+    return Intl.message('Musical', name: 'musical', desc: '', args: []);
+  }
+
+  /// `Mystery`
+  String get mystery {
+    return Intl.message('Mystery', name: 'mystery', desc: '', args: []);
+  }
+
+  /// `Romance`
+  String get romance {
+    return Intl.message('Romance', name: 'romance', desc: '', args: []);
+  }
+
+  /// `Sci-Fi`
+  String get sci_fi {
+    return Intl.message('Sci-Fi', name: 'sci_fi', desc: '', args: []);
+  }
+
+  /// `Western`
+  String get western {
+    return Intl.message('Western', name: 'western', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
