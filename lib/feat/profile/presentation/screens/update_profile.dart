@@ -71,7 +71,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 16),
               Center(child: buildAvatar()),
@@ -116,13 +116,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
     hintText: 'Enter phone number',
   );
 
-  Widget buildResetPassword() => InkWell(
-    onTap: () {},
-    child: Text(
-      'Reset Password',
-      style: AppStyle.textTheme.displayMedium,
-      textAlign: TextAlign.start,
-    ),
+  Widget buildResetPassword() => Row(
+    children: [
+      InkWell(
+        onTap: () {},
+        child: Text(
+          'Reset Password',
+          style: AppStyle.textTheme.displayMedium,
+          textAlign: TextAlign.start,
+        ),
+      ),
+    ],
   );
 
   Widget buildDeleteAccountElevatedButton() => CustomElevatedButton(
