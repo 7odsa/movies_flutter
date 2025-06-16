@@ -60,8 +60,9 @@ class _MainAppState extends State<MainApp> {
               colorScheme: ColorsApp.colorScheme,
               scaffoldBackgroundColor: ColorsApp.black,
             ),
-            // * Change Locale from here
-            // * We'll gonna add state_management to be able to access it from any screen
+            //  Change Locale from here
+            //  We'll gonna add state_management to be able to access it from any screen
+            // * DONE
             locale: Locale(l10nState),
             localizationsDelegates: [
               S.delegate,
