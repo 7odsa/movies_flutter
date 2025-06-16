@@ -80,9 +80,17 @@ class _ProfileTapState extends State<ProfileTap>
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Flexible(flex: 2, child: buildElevatedButtonEditProfile()),
+                  Flexible(
+                    flex: 2,
+                    fit: FlexFit.tight,
+                    child: buildElevatedButtonEditProfile(),
+                  ),
                   SizedBox(width: 10),
-                  Flexible(flex: 1, child: buildBuildElevatedButtonExit()),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: buildBuildElevatedButtonExit(),
+                  ),
                 ],
               ),
               buildTabBar(),
@@ -155,39 +163,31 @@ class _ProfileTapState extends State<ProfileTap>
     );
   }
 
-  Widget buildElevatedButtonEditProfile() => Flexible(
-    flex: 2,
-    fit: FlexFit.tight,
-    child: CustomElevatedButton(
-      horizontal: 26,
-      vertical: 12,
-      onClick: () async {
-        await Navigator.push(context, AppRouts.updateProfile());
-      },
-      text: 'Edit Profile',
-      textStyle: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 20,
-        color: ColorsApp.black,
-      ),
-      backgroundColor: ColorsApp.yellow,
+  Widget buildElevatedButtonEditProfile() => CustomElevatedButton(
+    horizontal: 26,
+    vertical: 12,
+    onClick: () async {
+      await Navigator.push(context, AppRouts.updateProfile());
+    },
+    text: 'Edit Profile',
+    textStyle: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 20,
+      color: ColorsApp.black,
     ),
+    backgroundColor: ColorsApp.yellow,
   );
 
-  Widget buildBuildElevatedButtonExit() => Flexible(
-    flex: 1,
-    fit: FlexFit.tight,
-    child: CustomElevatedButton(
-      horizontal: 16,
-      vertical: 12,
-      onClick: () {},
-      text: 'Exit',
-      textStyle: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 20,
-        color: ColorsApp.white,
-      ),
-      backgroundColor: ColorsApp.red2,
+  Widget buildBuildElevatedButtonExit() => CustomElevatedButton(
+    horizontal: 16,
+    vertical: 12,
+    onClick: () {},
+    text: 'Exit',
+    textStyle: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 20,
+      color: ColorsApp.white,
     ),
+    backgroundColor: ColorsApp.red2,
   );
 }

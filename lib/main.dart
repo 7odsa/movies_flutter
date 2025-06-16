@@ -9,8 +9,6 @@ import 'package:movies_flutter/feat/search/presentation/screens/search_screen.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:provider/provider.dart';
-import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
-import 'package:movies_flutter/feat/profile/presentation/screens/profile_tap.dart';
 import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
 
 import 'package:movies_flutter/generated/l10n.dart';
