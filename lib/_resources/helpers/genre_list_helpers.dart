@@ -37,7 +37,7 @@ String getLocalizedGenreName(BuildContext context, String genre) {
       return S.of(context).mystery;
     case 'romance':
       return S.of(context).romance;
-    case 'sci_fi':
+    case 'sci-fi':
       return S.of(context).sci_fi;
     case 'western':
       return S.of(context).western;
