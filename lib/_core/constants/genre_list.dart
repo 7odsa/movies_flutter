@@ -6,7 +6,6 @@ sealed class Genres {
     'action',
     'adventure',
     'animation',
-    'anime',
     'comedy',
     'crime',
     'documentary',
@@ -32,8 +31,7 @@ sealed class Genres {
         return S.of(context).adventure;
       case 'animation':
         return S.of(context).animation;
-      case 'anime':
-        return S.of(context).anime;
+
       case 'comedy':
         return S.of(context).comedy;
       case 'crime':

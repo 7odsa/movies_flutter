@@ -11,9 +11,15 @@ class MoviesListRepo {
     int? page,
     String? genre,
     String? searchTerm,
+    int? limit,
   }) async {
     // TODO check connectivity
 
-    return movieListRemoteDataSource.getListOfMovies(searchTerm: searchTerm);
+    return movieListRemoteDataSource.getListOfMovies(
+      page: page,
+      genre: genre,
+      searchTerm: searchTerm,
+      limit: limit,
+    );
   }
 }

@@ -10,9 +10,17 @@ part 'movies_list_vm_state.dart';
 class BrowseVmCubit extends Cubit<StateUi<List<MovieDM>?, String?>> {
   BrowseVmCubit({required this.browseRepo}) : super(LoadingState());
   final MoviesListRepo browseRepo;
-  Future<void> getMoviesList({required int page, String? genre}) async {
+  Future<void> getMoviesList({
+    required int page,
+    String? genre,
+    required int limit,
+  }) async {
     emit(LoadingState());
-    final result = await browseRepo.getListOfMovies(page: page, genre: genre);
+    final result = await browseRepo.getListOfMovies(
+      page: page,
+      genre: genre,
+      limit: limit,
+    );
     if (result is DataSuccess) {
       emit(SuccessState(result.data));
     } else {

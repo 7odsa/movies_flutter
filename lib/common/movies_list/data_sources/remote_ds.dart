@@ -9,12 +9,14 @@ class MoviesListRemoteDataSource {
     int? page,
     String? genre,
     String? searchTerm,
+    int? limit,
   }) async {
     try {
       var url = Uri.https("yts.mx", 'api/v2/list_movies.json', {
         if (genre != null) "genre": genre,
         if (page != null) 'page': page.toString(),
         if (searchTerm != null) 'query_term': searchTerm,
+        if (limit != null) 'limit': limit.toString(),
         'sort_by': 'like_count',
       });
       var response = await http.get(url);

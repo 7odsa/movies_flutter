@@ -23,6 +23,9 @@ class _BrowseScreenState extends State<BrowseScreen>
   late String selectedGenre = "";
   late Set<String> _genresList;
   late final BrowseVmCubit browseVM;
+  int page = 1;
+  final int limit = 20;
+  List<MovieDM> movies = [];
 
   @override
   void initState() {
@@ -34,7 +37,7 @@ class _BrowseScreenState extends State<BrowseScreen>
         movieListRemoteDataSource: MoviesListRemoteDataSource(),
       ),
     );
-    browseVM.getMoviesList(page: 1, genre: selectedGenre);
+    browseVM.getMoviesList(page: page, genre: selectedGenre, limit: limit);
   }
 
   @override
@@ -50,27 +53,47 @@ class _BrowseScreenState extends State<BrowseScreen>
     );
   }
 
-  BlocBuilder<BrowseVmCubit, StateUi<List<MovieDM>?, String?>>
   buildMovieList() {
     return BlocBuilder<BrowseVmCubit, StateUi<List<MovieDM>?, String?>>(
       bloc: browseVM,
       builder: (context, state) {
         print(state.data?[0].genres);
 
-        if (state is SuccessState) {
+        if (state is SuccessState || (page > 1 && state is LoadingState)) {
+          if (page == 1) {
+            movies = state.data ?? [];
+          } else {
+            movies.addAll(state.data ?? []);
+          }
           return Expanded(
             child: RefreshIndicator(
               color: ColorsApp.yellow,
               onRefresh: () async {
-                browseVM.getMoviesList(page: 1, genre: selectedGenre);
+                page = 1;
+                browseVM.getMoviesList(
+                  page: page,
+                  genre: selectedGenre,
+                  limit: limit,
+                );
               },
-              child: MoviesItemsList(movies: state.data!, numOfTiles: 2),
+              child: MoviesItemsList(
+                limit: limit,
+                movies: movies,
+                numOfTiles: 2,
+                onFetchingData: () {
+                  browseVM.getMoviesList(
+                    page: ++page,
+                    genre: selectedGenre,
+                    limit: limit,
+                  );
+                },
+              ),
             ),
           );
         } else if (state is ErrorState) {
           return Center(child: Text(state.error!));
         } else {
-          return CircularProgressIndicator();
+          return Column(children: [Center(child: CircularProgressIndicator())]);
         }
       },
     );
@@ -90,7 +113,12 @@ class _BrowseScreenState extends State<BrowseScreen>
               onItemTapped: () {
                 setState(() {
                   selectedGenre = _genresList.elementAt(index);
-                  browseVM.getMoviesList(page: 1, genre: selectedGenre);
+                  page = 1;
+                  browseVM.getMoviesList(
+                    page: page,
+                    genre: selectedGenre,
+                    limit: limit,
+                  );
                 });
               },
               genreName: _genresList.elementAt(index),

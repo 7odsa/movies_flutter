@@ -64,7 +64,12 @@ class _SearchScreenState extends State<SearchScreen> {
       bloc: moviesListVM,
       builder: (context, state) {
         if (state is SuccessState) {
-          return MoviesItemsList(numOfTiles: 2, movies: state.data ?? []);
+          return MoviesItemsList(
+            numOfTiles: 2,
+            movies: state.data ?? [],
+            // TODO fix it later
+            limit: 20,
+          );
         } else if (state is ErrorState) {
           return Center(child: Text(state.error ?? ''));
         }
