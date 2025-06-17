@@ -59,7 +59,7 @@ class _BrowseScreenState extends State<BrowseScreen>
       builder: (context, state) {
         print(state.data?[0].genres);
 
-        if (state is SuccessState || (page > 1 && state is LoadingState)) {
+        if (isVmStateIsSuccessStateOrOnPagination(state)) {
           if (page == 1) {
             movies = state.data ?? [];
           } else {
@@ -98,6 +98,10 @@ class _BrowseScreenState extends State<BrowseScreen>
       },
     );
   }
+
+  bool isVmStateIsSuccessStateOrOnPagination(
+    StateUi<List<MovieDM>?, String?> state,
+  ) => state is SuccessState || (page > 1 && state is LoadingState);
 
   Widget buildGenreBar() {
     double height = MediaQuery.sizeOf(context).height;

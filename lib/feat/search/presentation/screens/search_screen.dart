@@ -18,6 +18,10 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late final SearchVmCubit moviesListVM;
+  int page = 1;
+  final int limit = 20;
+  List<MovieDM> movies = [];
+  final controller = TextEditingController();
 
   @override
   void initState() {
@@ -27,7 +31,13 @@ class _SearchScreenState extends State<SearchScreen> {
         movieListRemoteDataSource: MoviesListRemoteDataSource(),
       ),
     );
-    moviesListVM.getMoviesList(searchText: '');
+    moviesListVM.getMoviesList(searchText: '', limit: limit, page: page);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,8 +54,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget buildSearchBar(BuildContext context) {
     return TextField(
+      controller: controller,
       onChanged: (value) {
-        moviesListVM.getMoviesList(searchText: value);
+        page = 1;
+        moviesListVM.getMoviesList(searchText: value, limit: limit, page: page);
       },
       decoration: InputDecoration(
         filled: true,
@@ -63,12 +75,33 @@ class _SearchScreenState extends State<SearchScreen> {
     return BlocBuilder<SearchVmCubit, StateUi<List<MovieDM>?, String?>>(
       bloc: moviesListVM,
       builder: (context, state) {
-        if (state is SuccessState) {
-          return MoviesItemsList(
-            numOfTiles: 2,
-            movies: state.data ?? [],
-            // TODO fix it later
-            limit: 20,
+        if (isVmStateIsSuccessStateOrOnPagination(state)) {
+          if (page == 1) {
+            movies = state.data ?? [];
+          } else {
+            movies.addAll(state.data ?? []);
+          }
+          return RefreshIndicator(
+            onRefresh: () async {
+              page = 1;
+              moviesListVM.getMoviesList(
+                page: page,
+                searchText: controller.text,
+                limit: limit,
+              );
+            },
+            child: MoviesItemsList(
+              numOfTiles: 2,
+              movies: movies,
+              limit: limit,
+              onFetchingData: () {
+                moviesListVM.getMoviesList(
+                  page: ++page,
+                  searchText: controller.text,
+                  limit: limit,
+                );
+              },
+            ),
           );
         } else if (state is ErrorState) {
           return Center(child: Text(state.error ?? ''));
@@ -77,4 +110,8 @@ class _SearchScreenState extends State<SearchScreen> {
       },
     );
   }
+
+  bool isVmStateIsSuccessStateOrOnPagination(
+    StateUi<List<MovieDM>?, String?> state,
+  ) => state is SuccessState || (page > 1 && state is LoadingState);
 }

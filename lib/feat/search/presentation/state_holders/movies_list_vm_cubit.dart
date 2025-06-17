@@ -8,9 +8,17 @@ import 'package:movies_flutter/common/movies_list/models/movie.dart';
 class SearchVmCubit extends Cubit<StateUi<List<MovieDM>?, String?>> {
   SearchVmCubit({required this.browseRepo}) : super(LoadingState());
   final MoviesListRepo browseRepo;
-  Future<void> getMoviesList({required String searchText}) async {
+  Future<void> getMoviesList({
+    required String searchText,
+    int? page,
+    int? limit,
+  }) async {
     emit(LoadingState());
-    final result = await browseRepo.getListOfMovies(searchTerm: searchText);
+    final result = await browseRepo.getListOfMovies(
+      searchTerm: searchText,
+      limit: limit,
+      page: page,
+    );
     if (result is DataSuccess) {
       final moviesList = result.data;
       // (searchText.isEmpty)

@@ -15,7 +15,7 @@ class MoviesListRemoteDataSource {
       var url = Uri.https("yts.mx", 'api/v2/list_movies.json', {
         if (genre != null) "genre": genre,
         if (page != null) 'page': page.toString(),
-        if (searchTerm != null) 'query_term': searchTerm,
+        if (searchTerm != null) 'query_term': searchTerm.toLowerCase(),
         if (limit != null) 'limit': limit.toString(),
         'sort_by': 'like_count',
       });
