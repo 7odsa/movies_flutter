@@ -7,6 +7,7 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  equatable: ^2.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -21,6 +22,7 @@ dependencies:
   get: ^4.7.2
   get_it: ^8.0.3
   intl: any
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
