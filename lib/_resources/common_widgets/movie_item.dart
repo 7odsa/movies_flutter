@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/common/movies_list/models/movie.dart';
 
 class MovieItem extends StatelessWidget {
-  const MovieItem({super.key, required this.imageUrl, required this.rate});
-  final String imageUrl;
-  final String rate;
+  const MovieItem({super.key, required this.movie});
+  final MovieDM movie;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class MovieItem extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           // TODO
-          child: Image.asset("assets/test_image.png"),
+          child: Image.network(movie.mediumCoverImage ?? ""),
         ),
         movieRateIcon(),
       ],
@@ -33,7 +33,7 @@ class MovieItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text("7.7"),
+            Text(movie.rating.toString()),
             Icon(Icons.star_rate_rounded, color: ColorsApp.yellow),
           ],
         ),

@@ -11,4 +11,6 @@ sealed class ColorsApp {
   static final white = const Color(0xFFffffff);
   static final green = const Color(0xFF57aa53);
   static final red = const Color(0xFFe82626);
+  static final red2 = const Color(0xFFE82626);
+  static final gray = const Color(0xFF212121);
 }
