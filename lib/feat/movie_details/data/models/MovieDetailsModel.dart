@@ -41,15 +41,16 @@ class MovieDetailsModel {
     final movie = json['data']?['movie'] ?? {};
 
     final rawScreenshots = [
-      movie['background_image'],
-      movie['large_cover_image'],
-      movie['background_image_original'],
+      movie['medium_screenshot_image1'],
+      movie['medium_screenshot_image2'],
+      movie['medium_screenshot_image3'],
     ];
 
-    final filteredScreenshots = rawScreenshots
-        .whereType<String>()
-        .where((url) => url.startsWith('http'))
-        .toList();
+    final filteredScreenshots =
+        rawScreenshots
+            .whereType<String>()
+            .where((url) => url.startsWith('http'))
+            .toList();
 
     return MovieDetailsModel(
       id: movie['id'] ?? 0,
@@ -68,7 +69,11 @@ class MovieDetailsModel {
       imdbCode: movie['imdb_code'] ?? '',
       mpaRating: movie['mpa_rating'] ?? '',
       trailerCode: movie['yt_trailer_code'] ?? '',
-      cast: (movie['cast'] as List?)?.map((e) => CastMember.fromJson(e)).toList() ?? [],
+      cast:
+          (movie['cast'] as List?)
+              ?.map((e) => CastMember.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 }
