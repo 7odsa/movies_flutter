@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
 import 'package:movies_flutter/_resources/state_ui.dart';
-import 'package:movies_flutter/common/movies_list/data_sources/remote_ds.dart';
 import 'package:movies_flutter/common/movies_list/models/movie.dart';
-import 'package:movies_flutter/common/movies_list/repos/movies_list_repo.dart';
+import 'package:movies_flutter/di/di.dart';
 import 'package:movies_flutter/feat/search/presentation/state_holders/movies_list_vm_cubit.dart';
 import 'package:movies_flutter/generated/l10n.dart';
 
@@ -17,20 +16,16 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late final SearchVmCubit moviesListVM;
   int page = 1;
   final int limit = 20;
   List<MovieDM> movies = [];
   final controller = TextEditingController();
+  final SearchVmCubit moviesListVM = sl();
 
   @override
   void initState() {
     super.initState();
-    moviesListVM = SearchVmCubit(
-      browseRepo: MoviesListRepo(
-        movieListRemoteDataSource: MoviesListRemoteDataSource(),
-      ),
-    );
+
     moviesListVM.getMoviesList(searchText: '', limit: limit, page: page);
   }
 

@@ -4,9 +4,8 @@ import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_core/constants/genre_list.dart';
 import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
 import 'package:movies_flutter/_resources/state_ui.dart';
-import 'package:movies_flutter/common/movies_list/repos/movies_list_repo.dart';
-import 'package:movies_flutter/common/movies_list/data_sources/remote_ds.dart';
 import 'package:movies_flutter/common/movies_list/models/movie.dart';
+import 'package:movies_flutter/di/di.dart';
 import 'package:movies_flutter/feat/browse/presentation/state_holders/cubit/movies_list_vm_cubit.dart';
 import 'package:movies_flutter/feat/browse/presentation/widgets/category_item.dart';
 
@@ -22,21 +21,17 @@ class _BrowseScreenState extends State<BrowseScreen>
   // late final _tabController;
   late String selectedGenre = "";
   late Set<String> _genresList;
-  late final BrowseVmCubit browseVM;
   int page = 1;
   final int limit = 20;
   List<MovieDM> movies = [];
+  final BrowseVmCubit browseVM = sl();
 
   @override
   void initState() {
     super.initState();
     _genresList = Genres.allKeys;
     selectedGenre = widget.genreName ?? _genresList.elementAt(0);
-    browseVM = BrowseVmCubit(
-      browseRepo: MoviesListRepo(
-        movieListRemoteDataSource: MoviesListRemoteDataSource(),
-      ),
-    );
+
     browseVM.getMoviesList(page: page, genre: selectedGenre, limit: limit);
   }
 
