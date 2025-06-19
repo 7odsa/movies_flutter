@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/_core/constants/genre_list.dart';
 import 'package:movies_flutter/di/di.dart';
 import 'package:movies_flutter/feat/home/presentation/widgets/available_movies_list.dart';
 import 'package:movies_flutter/feat/home/presentation/widgets/watch_list_movies.dart';
@@ -16,13 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> genres = [
-    "Latest",
-    "Action",
-    "Comedy",
-    "Animation",
-    "Horror",
-  ];
+  final List<String> genres = ["Latest", ...Genres.allKeys];
   late final MovieBloc movieBloc;
 
   int currentIndex = 0;
@@ -32,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     movieBloc = sl();
-    movieBloc.add(FetchMoviesByGenres(genres));
+    movieBloc.add(FetchMoviesByGenres());
     // context.read<MovieBloc>().add(FetchMoviesByGenres(genres));
   }
 

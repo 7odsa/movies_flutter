@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_flutter/_core/constants/genre_list.dart';
 import 'package:movies_flutter/common/movies_list/models/movie.dart';
 import 'package:movies_flutter/common/movies_list/repos/movies_list_repo.dart';
 import 'package:movies_flutter/feat/home/presentation/bloc/movie_event.dart';
@@ -14,7 +15,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       final Map<String, List<MovieDM>> genreMovies = {};
 
       try {
-        for (String genre in event.genres) {
+        for (String genre in ['Latest', ...Genres.allKeys.toList()]) {
           final List<MovieDM> movies =
               genre == "Latest"
                   ? (await repo.getLatestMovies()).data ?? []
