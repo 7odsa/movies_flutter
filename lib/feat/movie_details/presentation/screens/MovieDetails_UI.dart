@@ -47,20 +47,20 @@ class MovieDetailsScreen extends StatelessWidget {
                             right: 12,
                             child: FavoriteButton(),
                           ),
-                          Column(
-                            children: [
-                              const Center(
-                                heightFactor: 20,
-                                child: Icon(
-                                  Icons.play_circle_fill,
-                                  size: 64,
-                                  color: Colors.yellow,
-                                ),
+                          const Positioned.fill(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.play_circle_fill,
+                                size: 64,
+                                color: Colors.yellow,
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
+
+
 
                       const SizedBox(height: 12),
 
@@ -126,24 +126,32 @@ class MovieDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Column(
-                        children:
-                            movie.screenshots.map((url) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
+                        children: movie.screenshots.map((url) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black, // لون الخلفية يملأ الفراغات
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.network(
                                     url,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain, // يخلي الصورة كاملة من غير قص
                                     width: double.infinity,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.broken_image),
+                                    errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.broken_image),
                                   ),
                                 ),
-                              );
-                            }).toList(),
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
+
                       const SizedBox(height: 20),
 
                       Wrap(
