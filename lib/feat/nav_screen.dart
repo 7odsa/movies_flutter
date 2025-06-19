@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_core/constants/nav_icons.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
+import 'package:movies_flutter/feat/home/presentation/screens/home_screen.dart';
 import 'package:movies_flutter/feat/profile/presentation/screens/profile_tap.dart';
 import 'package:movies_flutter/feat/search/presentation/screens/search_screen.dart';
 
@@ -20,7 +21,7 @@ class _NavScreenState extends State<NavScreen> {
 
   // TODO: adding screens when finished
   Map<String, Widget> iconsScreenMap = {
-    Navicons.home: SearchScreen(),
+    Navicons.home: HomeScreen(),
     Navicons.search: SearchScreen(),
     Navicons.browse: BrowseScreen(),
     Navicons.profile: ProfileTap(),

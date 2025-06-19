@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_flutter/common/movies_list/data_sources/remote_ds.dart';
 import 'package:movies_flutter/common/movies_list/repos/movies_list_repo.dart';
 import 'package:movies_flutter/feat/browse/presentation/state_holders/cubit/movies_list_vm_cubit.dart';
+import 'package:movies_flutter/feat/home/presentation/bloc/movie_bloc.dart';
 import 'package:movies_flutter/feat/search/presentation/state_holders/movies_list_vm_cubit.dart';
 
 import 'package:movies_flutter/feat/home/data/data_sources/movie_api_service.dart';
@@ -22,5 +23,6 @@ class Di {
 
     sl.registerLazySingleton<MovieApiService>(() => MovieApiService());
     sl.registerLazySingleton<MovieRepo>(() => MovieRepo(sl()));
+    sl.registerLazySingleton<MovieBloc>(() => MovieBloc(sl()));
   }
 }
