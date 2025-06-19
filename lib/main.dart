@@ -12,6 +12,7 @@ import 'package:movies_flutter/_core/constants/nav_icons.dart';
 import 'package:movies_flutter/_resources/common_state_holders/cubit/l10n_cubit.dart';
 import 'package:movies_flutter/_resources/helpers/shared_prefs.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
+import 'package:movies_flutter/feat/movie_details/presentation/screens/MovieDetails_UI.dart';
 import 'package:movies_flutter/feat/nav_screen.dart';
 import 'package:movies_flutter/feat/search/presentation/screens/search_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,6 +103,7 @@ class _MainAppState extends State<MainApp> {
               child:
                   //  TestL10nScreen(),
                   NavScreen(),
+              // MovieDetailsScreen(movieId: 1),
             ),
           );
         },
