@@ -12,6 +12,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
     return BlocProvider(
       create: (_) => MovieDetailsBloc()..add(FetchMovieDetails(movieId)),
       child: Scaffold(
@@ -34,12 +35,16 @@ class MovieDetailsScreen extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              movie.image,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                          SizedBox(
+                            width: width,
+                            height: width * (13 / 9),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                movie.image,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Positioned(
@@ -59,8 +64,6 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-
-
 
                       const SizedBox(height: 12),
 
@@ -126,30 +129,36 @@ class MovieDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Column(
-                        children: movie.screenshots.map((url) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black, // لون الخلفية يملأ الفراغات
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 16 / 9,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    url,
-                                    fit: BoxFit.contain, // يخلي الصورة كاملة من غير قص
-                                    width: double.infinity,
-                                    errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.broken_image),
+                        children:
+                            movie.screenshots.map((url) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Colors
+                                            .black, // لون الخلفية يملأ الفراغات
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        url,
+                                        fit:
+                                            BoxFit
+                                                .contain, // يخلي الصورة كاملة من غير قص
+                                        width: double.infinity,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(Icons.broken_image),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                              );
+                            }).toList(),
                       ),
 
                       const SizedBox(height: 20),
