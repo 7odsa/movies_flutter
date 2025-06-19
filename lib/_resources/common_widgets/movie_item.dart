@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/common/movies_list/models/movie.dart';
+import 'package:movies_flutter/feat/movie_details/presentation/screens/MovieDetails_UI.dart';
 
 class MovieItem extends StatelessWidget {
   const MovieItem({super.key, required this.movie});
@@ -8,15 +9,24 @@ class MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          // TODO
-          child: Image.network(movie.mediumCoverImage ?? ""),
-        ),
-        movieRateIcon(),
-      ],
+    return InkWell(
+      onTap:
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetailsScreen(movieId: movie.id ?? -1),
+            ),
+          ),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            // TODO
+            child: Image.network(movie.mediumCoverImage ?? ""),
+          ),
+          movieRateIcon(),
+        ],
+      ),
     );
   }
 
