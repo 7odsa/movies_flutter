@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_flutter/feat/auth/data/data_sources/auth_remote_ds.dart';
+import 'package:movies_flutter/feat/auth/data/models/user.dart';
+import 'package:movies_flutter/feat/auth/data/repos/auth_repo.dart';
 import 'package:movies_flutter/feat/auth/presentation/check_email.dart';
 import 'package:movies_flutter/feat/auth/presentation/login.dart';
 import 'package:movies_flutter/feat/auth/presentation/widgets/show_flushbar.dart';
@@ -25,6 +28,8 @@ class _RegisterState extends State<Register> {
   bool passwordObscured = true;
   bool confirmPasswordObscured = true;
   bool isArabic = false;
+
+  AuthRepo authRepo = AuthRepo(authRemoteDS: AuthRemoteDS());
 
   final List<String> avatars = [
     'assets/avatar1.png',
@@ -52,43 +57,54 @@ class _RegisterState extends State<Register> {
       });
 
       try {
-        final signInMethods = await FirebaseAuth.instance
-            .fetchSignInMethodsForEmail(emailController.text);
-        if (signInMethods.isNotEmpty) {
-          setState(() {
-            loading = false;
-          });
-          showError("This email is already in use", context);
-          return;
-        }
+        // final signInMethods = await FirebaseAuth.instance
+        //     .fetchSignInMethodsForEmail(emailController.text);
+        // if (signInMethods.isNotEmpty) {
+        setState(() {
+          loading = false;
+        });
+        //   showError("This email is already in use", context);
+        //   return;
+        // }
 
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-        await userCredential.user!.updateDisplayName(nameController.text);
-        await userCredential.user!.updatePhotoURL(avatars[selectedIndex]);
+        // UserCredential userCredential = await FirebaseAuth.instance
+        //     .createUserWithEmailAndPassword(
+        //       email: emailController.text,
+        //       password: passwordController.text,
+        //     );
+        // await userCredential.user!.updateDisplayName(nameController.text);
+        // await userCredential.user!.updatePhotoURL(avatars[selectedIndex]);
 
-        await FirebaseFirestore.instance
-            .collection("users")
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set({
-              "name": nameController.text,
-              "email": emailController.text,
-              "phone": phoneController.text,
-              "photo": avatars[selectedIndex],
-              "uid": FirebaseAuth.instance.currentUser!.uid,
-            });
+        // await FirebaseFirestore.instance
+        //     .collection("users")
+        //     .doc(FirebaseAuth.instance.currentUser!.uid)
+        //     .set({
+        //       "name": nameController.text,
+        //       "email": emailController.text,
+        //       "phone": phoneController.text,
+        //       "photo": avatars[selectedIndex],
+        //       "uid": FirebaseAuth.instance.currentUser!.uid,
+        //     });
+
+        await authRepo.register(
+          UserDm(
+            id: '0',
+            password: passwordController.text,
+            name: nameController.text,
+            email: emailController.text,
+            phone: '+2${phoneController.text}',
+            avaterId: selectedIndex + 1,
+          ),
+        );
 
         setState(() {
           loading = false;
         });
         showSuccess("Successfully Registered", context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-        );
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => Login()),
+        // );
       } catch (e) {
         setState(() {
           loading = false;

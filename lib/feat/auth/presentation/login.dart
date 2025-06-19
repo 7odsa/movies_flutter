@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movies_flutter/feat/auth/data/data_sources/auth_remote_ds.dart';
+import 'package:movies_flutter/feat/auth/data/repos/auth_repo.dart';
 import 'package:movies_flutter/feat/auth/presentation/check_email.dart';
 import 'package:movies_flutter/feat/auth/presentation/forget_password.dart';
 import 'package:movies_flutter/feat/auth/presentation/register.dart';
@@ -21,16 +23,19 @@ class _LoginState extends State<Login> {
   bool passwordObscured = true;
   bool isArabic = false;
 
+  final AuthRepo authRepo = AuthRepo(authRemoteDS: AuthRemoteDS());
+
   Future signIn() async {
     if (formKey.currentState!.validate()) {
       setState(() {
         loading = true;
       });
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
+        // await FirebaseAuth.instance.signInWithEmailAndPassword(
+        //   email: emailController.text,
+        //   password: passwordController.text,
+        // );
+        await authRepo.login(emailController.text, passwordController.text);
         setState(() {
           loading = false;
         });
@@ -47,7 +52,8 @@ class _LoginState extends State<Login> {
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -123,9 +129,10 @@ class _LoginState extends State<Login> {
                         passwordObscured = !passwordObscured;
                       });
                     },
-                    icon: passwordObscured
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                    icon:
+                        passwordObscured
+                            ? Icon(Icons.visibility)
+                            : Icon(Icons.visibility_off),
                   ),
                   hintText: 'Password',
                 ),
@@ -161,9 +168,10 @@ class _LoginState extends State<Login> {
                   ),
                   padding: EdgeInsets.all(15),
                 ),
-                child: loading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Login', style: TextStyle(fontSize: 20)),
+                child:
+                    loading
+                        ? CircularProgressIndicator(color: Colors.white)
+                        : Text('Login', style: TextStyle(fontSize: 20)),
               ),
               const SizedBox(height: 16),
               Row(
@@ -236,12 +244,13 @@ class _LoginState extends State<Login> {
                   spacing: 15,
                   children: [
                     GestureDetector(
-                      onTap: () => setState(() {
-                        isArabic = false;
-                      }),
+                      onTap:
+                          () => setState(() {
+                            isArabic = false;
+                          }),
                       child: CircleAvatar(
                         backgroundColor:
-                        !isArabic ? Color(0xffF6BD00) : Colors.transparent,
+                            !isArabic ? Color(0xffF6BD00) : Colors.transparent,
                         child: CircleAvatar(
                           backgroundImage: AssetImage('assets/USA.png'),
                           radius: 16,
@@ -249,12 +258,13 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => setState(() {
-                        isArabic = true;
-                      }),
+                      onTap:
+                          () => setState(() {
+                            isArabic = true;
+                          }),
                       child: CircleAvatar(
                         backgroundColor:
-                        isArabic ? Color(0xffF6BD00) : Colors.transparent,
+                            isArabic ? Color(0xffF6BD00) : Colors.transparent,
                         child: CircleAvatar(
                           backgroundImage: AssetImage('assets/EG.png'),
                           radius: 16,

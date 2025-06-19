@@ -20,12 +20,13 @@ class _SearchScreenState extends State<SearchScreen> {
   final int limit = 20;
   List<MovieDM> movies = [];
   final controller = TextEditingController();
-  final SearchVmCubit moviesListVM = sl();
+  late final SearchVmCubit moviesListVM;
 
   @override
   void initState() {
     super.initState();
 
+    moviesListVM = sl();
     moviesListVM.getMoviesList(searchText: '', limit: limit, page: page);
   }
 

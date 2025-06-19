@@ -24,14 +24,14 @@ class _BrowseScreenState extends State<BrowseScreen>
   int page = 1;
   final int limit = 20;
   List<MovieDM> movies = [];
-  final BrowseVmCubit browseVM = sl();
+  late final BrowseVmCubit browseVM;
 
   @override
   void initState() {
     super.initState();
     _genresList = Genres.allKeys;
     selectedGenre = widget.genreName ?? _genresList.elementAt(0);
-
+    browseVM = sl();
     browseVM.getMoviesList(page: page, genre: selectedGenre, limit: limit);
   }
 

@@ -38,7 +38,6 @@ Future<void> main() async {
       (FlutterErrorDetails flutterErrorDetails) => ErrorScreen();
   await SharedPrefs.initSharedPrefs();
 
-  Di.setupDependancyInjection();
   runApp(
     MultiProvider(
       providers: [
@@ -102,7 +101,8 @@ class _MainAppState extends State<MainApp> {
             home: SafeArea(
               child:
                   //  TestL10nScreen(),
-                  NavScreen(),
+                  Login(),
+              // NavScreen(),
               // MovieDetailsScreen(movieId: 1),
             ),
           );

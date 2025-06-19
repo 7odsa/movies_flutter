@@ -8,13 +8,13 @@ final sl = GetIt.instance;
 
 class Di {
   static void setupDependancyInjection() {
-    sl.registerLazySingleton<MoviesListRemoteDataSource>(
-      () => MoviesListRemoteDataSource(),
+    sl.registerSingleton<MoviesListRemoteDataSource>(
+      MoviesListRemoteDataSource(),
     );
-    sl.registerLazySingleton<MoviesListRepo>(
-      () => MoviesListRepo(movieListRemoteDataSource: sl()),
+    sl.registerSingleton<MoviesListRepo>(
+      MoviesListRepo(movieListRemoteDataSource: sl()),
     );
-    sl.registerLazySingleton<SearchVmCubit>(() => SearchVmCubit(repo: sl()));
-    sl.registerLazySingleton<BrowseVmCubit>(() => BrowseVmCubit(repo: sl()));
+    sl.registerSingleton<SearchVmCubit>(SearchVmCubit(repo: sl()));
+    sl.registerSingleton<BrowseVmCubit>(BrowseVmCubit(repo: sl()));
   }
 }
