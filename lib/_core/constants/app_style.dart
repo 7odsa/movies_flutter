@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 
 abstract final class AppStyle {
@@ -38,5 +39,11 @@ abstract final class AppStyle {
       fontSize: 24,
       fontWeight: FontWeight.w700,
     ),
+    displaySmall: TextStyle(
+    color: ColorsApp.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  ),
+    headlineLarge: GoogleFonts.pacifico(fontSize: 50, color: Colors.white),
   );
 }
