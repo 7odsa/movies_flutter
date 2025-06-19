@@ -15,11 +15,15 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       final Map<String, List<MovieDM>> genreMovies = {};
 
       try {
-        for (String genre in ['Latest', ...Genres.allKeys.toList()]) {
+        for (String genre in ['Latest', ...Genres.allKeys]) {
           final List<MovieDM> movies =
               genre == "Latest"
                   ? (await repo.getLatestMovies()).data ?? []
-                  : (await repo.getListOfMovies(genre: genre)).data ?? [];
+                  : (await repo.getListOfMovies(
+                        genre: genre,
+                        limit: 10,
+                      )).data ??
+                      [];
 
           genreMovies[genre] = movies;
         }
