@@ -27,13 +27,6 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onClick,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontal,
-          vertical: vertical,
-        ),
-        child: Text(text, style: textStyle),
-      ),
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(backgroundColor),
         shape: WidgetStatePropertyAll(
@@ -42,6 +35,13 @@ class CustomElevatedButton extends StatelessWidget {
             side: BorderSide(color: backgroundColor),
           ),
         ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+          vertical: vertical,
+        ),
+        child: Text(text, style: textStyle),
       ),
     );
   }

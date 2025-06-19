@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/common/movies_list/models/movie.dart';
+import 'package:movies_flutter/feat/movie_details/presentation/screens/MovieDetails_UI.dart';
 import '../../data/models/movie_model.dart';
 import 'movie_card.dart';
 
 class AvailableMoviesList extends StatelessWidget {
-  final List<Movie> movies;
+  final List<MovieDM> movies;
   final int currentIndex;
   final ValueChanged<int> onPageChanged;
 
@@ -26,7 +28,7 @@ class AvailableMoviesList extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.network(
-              movies[currentIndex].image,
+              movies[currentIndex].mediumCoverImage ?? '',
               fit: BoxFit.cover,
               errorBuilder:
                   (context, error, stackTrace) => Container(
@@ -61,10 +63,18 @@ class AvailableMoviesList extends StatelessWidget {
                   itemBuilder:
                       (context, index, realIndex) => MovieCard(
                         onTap: () {
-                          //TODO
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => MovieDetailsScreen(
+                                    movieId: movies[index].id ?? 0,
+                                  ),
+                            ),
+                          );
                         },
                         rating: movies[index].rating.toString(),
-                        imagePath: movies[index].image,
+                        imagePath: movies[index].mediumCoverImage ?? '',
                       ),
                   options: CarouselOptions(
                     height: 300,

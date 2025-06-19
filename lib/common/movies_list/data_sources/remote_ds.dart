@@ -32,4 +32,26 @@ class MoviesListRemoteDataSource {
       return DataFailed(e.toString());
     }
   }
+
+  Future<DataState<List<MovieDM>>> getLatestMovies() async {
+    try {
+      final url = Uri.https('yts.mx', 'api/v2/list_movies.json', {
+        'sort_by': 'date_added',
+      });
+
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final List moviesJson = jsonData['data']['movies'];
+        final List<MovieDM> movies =
+            moviesJson.map((json) => MovieDM.fromJson(json)).toList();
+        return DataSuccess(movies);
+      } else {
+        return DataFailed('Failed to load latest movies');
+      }
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
 }

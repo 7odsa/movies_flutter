@@ -3,11 +3,7 @@ class Movie {
   final String image;
   final double rating;
 
-  Movie({
-    required this.title,
-    required this.image,
-    required this.rating,
-  });
+  Movie({required this.title, required this.image, required this.rating});
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(

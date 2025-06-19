@@ -22,4 +22,8 @@ class MoviesListRepo {
       limit: limit,
     );
   }
+
+  Future<DataState<List<MovieDM>>> getLatestMovies() async {
+    return movieListRemoteDataSource.getLatestMovies();
+  }
 }

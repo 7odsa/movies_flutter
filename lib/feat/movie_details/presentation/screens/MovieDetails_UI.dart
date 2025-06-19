@@ -153,7 +153,7 @@ class MovieDetailsScreen extends StatelessWidget {
                             state.similarMovies.map((similarMovie) {
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder:

@@ -23,14 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
     "Animation",
     "Horror",
   ];
-  // final MovieBloc movieBloc = MovieBloc(sl());
+  late final MovieBloc movieBloc;
 
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    // movieBloc.add(FetchMoviesByGenres(genres));
+
+    movieBloc = sl();
+    movieBloc.add(FetchMoviesByGenres(genres));
+    // context.read<MovieBloc>().add(FetchMoviesByGenres(genres));
   }
 
   @override
@@ -39,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: ColorsApp.black,
       body: SafeArea(
         child: BlocBuilder<MovieBloc, MovieState>(
-          // bloc: movieBloc,
+          bloc: movieBloc,
           builder: (context, state) {
             print(state);
             if (state is MoviesLoading) {
