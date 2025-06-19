@@ -82,6 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
             movies.addAll(state.data ?? []);
           }
           return RefreshIndicator(
+            color: ColorsApp.yellow,
             onRefresh: () async {
               page = 1;
               moviesListVM.getMoviesList(

@@ -44,7 +44,7 @@ class _MoviesItemsListState extends State<MoviesItemsList> {
   @override
   Widget build(BuildContext context) {
     return (widget.movies.isEmpty)
-        ? Center(child: Text("No Data"))
+        ? buildNoData()
         : GridView.builder(
           controller: scrollController,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,4 +73,8 @@ class _MoviesItemsListState extends State<MoviesItemsList> {
           itemCount: widget.movies.length + 1,
         );
   }
+
+  Widget buildNoData() =>
+  // ListView(children: [Center(child: Text("No Data"))]);
+  Center(child: Text("No Data"));
 }
