@@ -148,7 +148,7 @@ class AuthRemoteDS {
     }
   }
 
-  Future deleteAccount() async {
+  Future deleteProfile() async {
     try {
       final url = Uri.https(_authBaseUrl, 'profile');
       final token = SharedPrefs.getUserToken();
@@ -169,13 +169,6 @@ class AuthRemoteDS {
       return DataFailed(e.toString());
     }
   }
-
-  // TODO:  Delete Profile
-
-  // TODO:  add movie to favorite
-  // TODO:  get all favorites movies
-  // TODO:  remove movie
-  // TODO:  movie is favorite
 
   // Future<DataState<UserDm>> getProfile(UserDm user) async {
   //   try {

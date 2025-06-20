@@ -8,7 +8,7 @@ enum EnumLang { en, ar }
 
 class L10nCubit extends Cubit<String> {
   L10nCubit() : super(SharedPrefs.getL10n());
-  void toggle(EnumLang lang) async {
+  void switchLanguage(EnumLang lang) async {
     final newl10n = await SharedPrefs.toggle(lang);
     emit(newl10n);
   }

@@ -27,7 +27,7 @@ class AuthRepo {
 
   Future<DataState<bool>> deleteAccount() async {
     try {
-      final result = await authRemoteDS.deleteAccount();
+      final result = await authRemoteDS.deleteProfile();
       return result;
     } catch (e) {
       return DataFailed(e.toString());

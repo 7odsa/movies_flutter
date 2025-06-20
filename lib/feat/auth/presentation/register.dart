@@ -410,7 +410,9 @@ class _RegisterState extends State<Register> {
                     GestureDetector(
                       onTap:
                           () => setState(() {
-                            context.read<L10nCubit>().toggle(EnumLang.en);
+                            context.read<L10nCubit>().switchLanguage(
+                              EnumLang.en,
+                            );
                             isArabic = false;
                           }),
                       child: CircleAvatar(
@@ -425,7 +427,9 @@ class _RegisterState extends State<Register> {
                     GestureDetector(
                       onTap:
                           () => setState(() {
-                            context.read<L10nCubit>().toggle(EnumLang.ar);
+                            context.read<L10nCubit>().switchLanguage(
+                              EnumLang.ar,
+                            );
                             isArabic = true;
                           }),
                       child: CircleAvatar(

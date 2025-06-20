@@ -27,4 +27,9 @@ sealed class SharedPrefs {
     final token = _sharedPrefs.getString(userKey);
     return token;
   }
+
+  static Future<bool> exitAccount() async {
+    final isRemoved = await _sharedPrefs.remove(userKey);
+    return isRemoved;
+  }
 }

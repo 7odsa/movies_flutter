@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_core/constants/nav_icons.dart';
 import 'package:movies_flutter/_resources/common_state_holders/nav_screen_sh/cubit/nav_screen_cubit.dart';
+import 'package:movies_flutter/di/di.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
 import 'package:movies_flutter/feat/home/presentation/screens/home_screen.dart';
 import 'package:movies_flutter/feat/profile/presentation/screens/profile_tap.dart';
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart';
 import 'package:movies_flutter/feat/search/presentation/screens/search_screen.dart';
 
 class NavScreen extends StatefulWidget {
@@ -33,14 +35,17 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NavScreenCubit(),
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-          child: BlocBuilder<NavScreenCubit, Widget>(
-            builder: (context, state) {
-              return Stack(children: [state, buildFloatedNavBar()]);
-            },
+      create: (context) => ProfileCubit(sl()),
+      child: BlocProvider(
+        create: (context) => NavScreenCubit(),
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+            child: BlocBuilder<NavScreenCubit, Widget>(
+              builder: (context, state) {
+                return Stack(children: [state, buildFloatedNavBar()]);
+              },
+            ),
           ),
         ),
       ),

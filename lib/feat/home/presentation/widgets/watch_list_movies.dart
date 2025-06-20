@@ -8,6 +8,7 @@ import 'package:movies_flutter/common/movies_list/models/movie.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
 import 'package:movies_flutter/feat/home/presentation/widgets/movie_card.dart';
 import 'package:movies_flutter/feat/movie_details/presentation/screens/MovieDetails_UI.dart';
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart';
 import 'package:movies_flutter/generated/l10n.dart';
 
 class WatchListMovies extends StatelessWidget {

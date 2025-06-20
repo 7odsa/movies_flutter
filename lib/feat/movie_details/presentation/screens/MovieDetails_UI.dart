@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_flutter/feat/movie_details/presentation/state_holders/cubit/profile_cubit.dart';
 import 'package:movies_flutter/feat/movie_details/presentation/widgets/favourites_button.dart'
     show FavoriteButton;
 import 'package:movies_flutter/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../state_holders/Bloc.dart';
 
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart'
+    as all_fav;
+
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
-
   const MovieDetailsScreen({super.key, required this.movieId});
 
   @override
@@ -27,7 +30,6 @@ class MovieDetailsScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state is MovieDetailsLoaded) {
               final movie = state.movieDetails;
-
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -54,7 +56,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           Positioned(
                             top: 12,
                             right: 12,
-                            child: FavoriteButton(),
+                            child: FavoriteButton(movie: movie),
                           ),
                           const Positioned.fill(
                             child: Align(

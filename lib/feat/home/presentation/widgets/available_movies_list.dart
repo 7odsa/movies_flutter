@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/common/movies_list/models/movie.dart';
 import 'package:movies_flutter/feat/movie_details/presentation/screens/MovieDetails_UI.dart';
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart';
 import '../../data/models/movie_model.dart';
 import 'movie_card.dart';
 

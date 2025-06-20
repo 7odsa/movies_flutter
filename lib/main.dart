@@ -107,7 +107,7 @@ class TestL10nScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.read<L10nCubit>().toggle(EnumLang.en);
+            context.read<L10nCubit>().switchLanguage(EnumLang.en);
           },
           child: Text(S.of(context).action),
         ),

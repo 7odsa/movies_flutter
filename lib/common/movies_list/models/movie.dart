@@ -112,4 +112,23 @@ class MovieDM {
     data['date_uploaded'] = dateUploaded;
     return data;
   }
+
+  static List<MovieDM> listFromJson(json) {
+    List<dynamic> data = (json['data'] as List<dynamic>);
+    List<MovieDM> movies = [];
+    for (var movie in data) {
+      int year = int.parse(movie['year'] as String);
+      int id = int.parse(movie['movieId']);
+      movies.add(
+        MovieDM(
+          id: id,
+          title: movie['name'],
+          rating: movie['rating'],
+          mediumCoverImage: movie['imageURL'],
+          year: year,
+        ),
+      );
+    }
+    return movies;
+  }
 }

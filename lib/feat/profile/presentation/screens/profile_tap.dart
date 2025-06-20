@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/app_routs.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/_resources/common_widgets/movies_items_list.dart';
+import 'package:movies_flutter/_resources/helpers/shared_prefs.dart';
+import 'package:movies_flutter/_resources/state_ui.dart';
+import 'package:movies_flutter/common/movies_list/models/movie.dart';
+import 'package:movies_flutter/feat/auth/presentation/login.dart';
 import 'package:movies_flutter/feat/auth/presentation/update_profile.dart';
 import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart';
 import 'package:movies_flutter/feat/profile/presentation/widgets/custom_elevated_buttom.dart';
+import 'package:movies_flutter/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTap extends StatefulWidget {
@@ -21,6 +29,12 @@ class _ProfileTapState extends State<ProfileTap>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    context.read<ProfileCubit>().getFavoriteMovies();
+    _tabController.addListener(() {
+      if (_tabController.index == 0) {
+        context.read<ProfileCubit>().getFavoriteMovies();
+      }
+    });
     super.initState();
   }
 
@@ -62,7 +76,20 @@ class _ProfileTapState extends State<ProfileTap>
   ];
 
   final List<Widget> _tabsBody = [
-    ListView(shrinkWrap: true, children: [Image.asset('assets/Empty 1.png')]),
+    BlocBuilder<ProfileCubit, StateUi<List<MovieDM>, String>>(
+      builder: (context, state) {
+        if (state is ErrorState) {
+          return Center(child: Text(state.error ?? "error"));
+        } else if (state is SuccessState) {
+          return MoviesItemsList(
+            numOfTiles: 3,
+            movies: state.data ?? [],
+            limit: ((state.data?.length) ?? 0) + 1,
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    ),
     ListView(shrinkWrap: true, children: [Image.asset('assets/Empty 1.png')]),
   ];
 
@@ -185,8 +212,10 @@ class _ProfileTapState extends State<ProfileTap>
   Widget buildBuildElevatedButtonExit() => CustomElevatedButton(
     horizontal: 16,
     vertical: 12,
-    onClick: () {},
-    text: 'Exit',
+    onClick: () {
+      exitAccout();
+    },
+    text: S.of(context).exit,
     textStyle: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 20,
@@ -194,4 +223,20 @@ class _ProfileTapState extends State<ProfileTap>
     ),
     backgroundColor: ColorsApp.red2,
   );
+
+  Future<void> exitAccout() async {
+    bool isExited = await SharedPrefs.exitAccount();
+    if (mounted) {
+      if (isExited) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+        return;
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Error")));
+    }
+  }
 }
