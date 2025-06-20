@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/feat/movie_details/presentation/widgets/favourites_button.dart'
     show FavoriteButton;
+import 'package:movies_flutter/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../state_holders/Bloc.dart';
 
@@ -16,7 +17,10 @@ class MovieDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => MovieDetailsBloc()..add(FetchMovieDetails(movieId)),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Movie Details')),
+        appBar: AppBar(
+          title: Text(S.of(context).movieDetails),
+          centerTitle: true,
+        ),
         body: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
           builder: (context, state) {
             if (state is MovieDetailsLoading) {
@@ -108,7 +112,10 @@ class MovieDetailsScreen extends StatelessWidget {
                           _infoIcon(Icons.favorite, '${movie.likes}'),
                           _infoIcon(Icons.visibility, '${movie.views}'),
                           _infoIcon(Icons.star, '${movie.rating}'),
-                          _infoIcon(Icons.timer, '${movie.runtime} min'),
+                          _infoIcon(
+                            Icons.timer,
+                            '${movie.runtime} ${S.of(context).min}',
+                          ),
                           _infoIcon(Icons.language, movie.language),
                           _infoIcon(Icons.movie_filter, movie.mpaRating),
                           _infoIcon(
@@ -120,8 +127,8 @@ class MovieDetailsScreen extends StatelessWidget {
 
                       const SizedBox(height: 20),
 
-                      const Text(
-                        'Screen Shots',
+                      Text(
+                        S.of(context).screenshots,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -162,7 +169,13 @@ class MovieDetailsScreen extends StatelessWidget {
                       ),
 
                       const SizedBox(height: 20),
-
+                      Text(
+                        S.of(context).similar,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
@@ -219,8 +232,8 @@ class MovieDetailsScreen extends StatelessWidget {
 
                       const SizedBox(height: 20),
 
-                      const Text(
-                        'Summary',
+                      Text(
+                        S.of(context).summary,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -235,8 +248,8 @@ class MovieDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 20),
 
                       if (movie.cast.isNotEmpty) ...[
-                        const Text(
-                          'Cast',
+                        Text(
+                          S.of(context).cast,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -256,8 +269,8 @@ class MovieDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                       ],
 
-                      const Text(
-                        'Genres',
+                      Text(
+                        S.of(context).genres,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

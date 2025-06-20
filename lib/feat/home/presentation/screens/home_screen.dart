@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         return WatchListMovies(
                           movies: movies,
-                          movieType: genre,
+                          genreName: genre,
                         );
                       }).toList(),
                 ),

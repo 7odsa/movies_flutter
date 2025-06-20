@@ -6,6 +6,7 @@ import 'package:movies_flutter/_resources/common_state_holders/nav_screen_sh/cub
 import 'package:movies_flutter/feat/auth/presentation/error_screen.dart';
 import 'package:movies_flutter/_resources/common_state_holders/l10n_sh/cubit/l10n_cubit.dart';
 import 'package:movies_flutter/_resources/helpers/shared_prefs.dart';
+import 'package:movies_flutter/feat/auth/presentation/login.dart';
 import 'package:movies_flutter/feat/home/presentation/bloc/movie_bloc.dart';
 import 'package:movies_flutter/feat/nav_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,22 +37,24 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         // Add other providers here if needed
       ],
-      child: const MainApp(),
+      child: MainApp(),
     ),
   );
 }
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
-
   @override
   State<MainApp> createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
+  late Widget screen;
   @override
   void initState() {
     super.initState();
+    final String? token = SharedPrefs.getUserToken();
+    screen = (token != null) ? NavScreen() : Login();
   }
 
   @override
@@ -84,7 +87,7 @@ class _MainAppState extends State<MainApp> {
                 child:
                     //  TestL10nScreen(),
                     // HomeScreen(),
-                    NavScreen(),
+                    screen,
                 // MovieDetailsScreen(movieId: 1),
               ),
             );
@@ -104,7 +107,7 @@ class TestL10nScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.read<L10nCubit>().toggle();
+            context.read<L10nCubit>().toggle(EnumLang.en);
           },
           child: Text(S.of(context).action),
         ),

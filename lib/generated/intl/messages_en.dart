@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "crime": MessageLookupByLibrary.simpleMessage("Crime"),
     "delete_account": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "documentary": MessageLookupByLibrary.simpleMessage("Documentary"),
+    "dont_have_account": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have Account?",
+    ),
     "drama": MessageLookupByLibrary.simpleMessage("Drama"),
     "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -57,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_with_google": MessageLookupByLibrary.simpleMessage(
       "Login with Google",
     ),
+    "min": MessageLookupByLibrary.simpleMessage("min"),
+    "movieDetails": MessageLookupByLibrary.simpleMessage("Movie Details"),
     "music": MessageLookupByLibrary.simpleMessage("Music"),
     "musical": MessageLookupByLibrary.simpleMessage("Musical"),
     "mystery": MessageLookupByLibrary.simpleMessage("Mystery"),
@@ -70,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reset_password": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "romance": MessageLookupByLibrary.simpleMessage("Romance"),
     "sci_fi": MessageLookupByLibrary.simpleMessage("Sci-Fi"),
-    "screen_shots": MessageLookupByLibrary.simpleMessage("Screen Shots"),
+    "screenshots": MessageLookupByLibrary.simpleMessage("Screen Shots"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "see_more": MessageLookupByLibrary.simpleMessage("See More"),
     "similar": MessageLookupByLibrary.simpleMessage("Similar"),

@@ -1,6 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_flutter/_resources/common_state_holders/l10n_sh/cubit/l10n_cubit.dart';
+import 'package:movies_flutter/_resources/data_state.dart';
+import 'package:movies_flutter/_resources/helpers/shared_prefs.dart';
 import 'package:movies_flutter/feat/auth/data/data_sources/auth_remote_ds.dart';
 import 'package:movies_flutter/feat/auth/data/models/user.dart';
 import 'package:movies_flutter/feat/auth/data/repos/auth_repo.dart';
@@ -8,6 +12,8 @@ import 'package:movies_flutter/feat/auth/presentation/check_email.dart';
 import 'package:movies_flutter/feat/auth/presentation/login.dart';
 import 'package:movies_flutter/feat/auth/presentation/widgets/show_flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:movies_flutter/feat/nav_screen.dart';
+import 'package:movies_flutter/generated/l10n.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -100,16 +106,34 @@ class _RegisterState extends State<Register> {
         setState(() {
           loading = false;
         });
-        showSuccess("Successfully Registered", context);
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => Login()),
-        // );
+
+        final tokenState = await authRepo.login(
+          emailController.text,
+          passwordController.text,
+        );
+
+        setState(() {
+          loading = false;
+        });
+
+        if (mounted) {
+          if (tokenState is DataSuccess) {
+            SharedPrefs.setUserToken(tokenState.data ?? '');
+            showSuccess("Successfully Logged In", context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => NavScreen()),
+            );
+          } else {
+            showError(tokenState.errorMsg ?? 'err', context);
+          }
+        }
       } catch (e) {
         setState(() {
           loading = false;
         });
-        showError(e.toString(), context);
+
+        (mounted) ? showError(e.toString(), context) : null;
       }
     }
   }
@@ -137,7 +161,7 @@ class _RegisterState extends State<Register> {
                     },
                   ),
                   Text(
-                    'Register',
+                    S.of(context).register,
                     style: TextStyle(
                       color: Color(0xffF6BD00),
                       fontSize: 20,
@@ -202,7 +226,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   prefixIcon: const Icon(Icons.person),
-                  hintText: 'Name',
+                  hintText: S.of(context).name,
                 ),
               ),
               const SizedBox(height: 16),
@@ -232,7 +256,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   prefixIcon: const Icon(Icons.email),
-                  hintText: 'Email',
+                  hintText: S.of(context).email,
                 ),
               ),
               const SizedBox(height: 16),
@@ -268,7 +292,7 @@ class _RegisterState extends State<Register> {
                             ? Icon(Icons.visibility)
                             : Icon(Icons.visibility_off),
                   ),
-                  hintText: 'Password',
+                  hintText: S.of(context).password,
                 ),
               ),
               const SizedBox(height: 16),
@@ -304,7 +328,7 @@ class _RegisterState extends State<Register> {
                             ? Icon(Icons.visibility)
                             : Icon(Icons.visibility_off),
                   ),
-                  hintText: 'Confirm Password',
+                  hintText: S.of(context).confirm_password,
                 ),
               ),
               const SizedBox(height: 16),
@@ -329,7 +353,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   prefixIcon: const Icon(Icons.phone),
-                  hintText: 'Phone',
+                  hintText: S.of(context).phone_number,
                 ),
               ),
               const SizedBox(height: 16),
@@ -346,8 +370,8 @@ class _RegisterState extends State<Register> {
                 child:
                     loading
                         ? CircularProgressIndicator(color: Colors.white)
-                        : const Text(
-                          'Create Account',
+                        : Text(
+                          S.of(context).create_account,
                           style: TextStyle(fontSize: 20),
                         ),
               ),
@@ -355,7 +379,7 @@ class _RegisterState extends State<Register> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already Have Account?'),
+                  Text(S.of(context).already_have_account),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -366,7 +390,10 @@ class _RegisterState extends State<Register> {
                     style: TextButton.styleFrom(
                       foregroundColor: Color(0xffF6BD00),
                     ),
-                    child: Text('Login', style: TextStyle(fontSize: 15)),
+                    child: Text(
+                      S.of(context).login,
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
                 ],
               ),
@@ -383,6 +410,7 @@ class _RegisterState extends State<Register> {
                     GestureDetector(
                       onTap:
                           () => setState(() {
+                            context.read<L10nCubit>().toggle(EnumLang.en);
                             isArabic = false;
                           }),
                       child: CircleAvatar(
@@ -397,6 +425,7 @@ class _RegisterState extends State<Register> {
                     GestureDetector(
                       onTap:
                           () => setState(() {
+                            context.read<L10nCubit>().toggle(EnumLang.ar);
                             isArabic = true;
                           }),
                       child: CircleAvatar(

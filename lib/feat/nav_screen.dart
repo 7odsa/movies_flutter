@@ -18,10 +18,6 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   // double screenWidth = MediaQuery.sizeOf(context).width;
 
-  // TODO: for now and change it later to home screen
-  late Widget contentScreen;
-
-  // TODO: adding screens when finished
   Map<String, Widget> iconsScreenMap = {
     Navicons.home: HomeScreen(),
     Navicons.search: SearchScreen(),
@@ -31,7 +27,6 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   void initState() {
-    contentScreen = iconsScreenMap[Navicons.home]!;
     super.initState();
   }
 

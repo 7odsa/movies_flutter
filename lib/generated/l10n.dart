@@ -79,7 +79,15 @@ class S {
     return Intl.message('Login', name: 'login', desc: '', args: []);
   }
 
-  // skipped getter for the 'don\'t_have_account' key
+  /// `Don't have Account?`
+  String get dont_have_account {
+    return Intl.message(
+      'Don\'t have Account?',
+      name: 'dont_have_account',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Create One`
   String get create_one {
@@ -122,10 +130,10 @@ class S {
   }
 
   /// `Screen Shots`
-  String get screen_shots {
+  String get screenshots {
     return Intl.message(
       'Screen Shots',
-      name: 'screen_shots',
+      name: 'screenshots',
       desc: '',
       args: [],
     );
@@ -389,6 +397,21 @@ class S {
   /// `Western`
   String get western {
     return Intl.message('Western', name: 'western', desc: '', args: []);
+  }
+
+  /// `Movie Details`
+  String get movieDetails {
+    return Intl.message(
+      'Movie Details',
+      name: 'movieDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `min`
+  String get min {
+    return Intl.message('min', name: 'min', desc: '', args: []);
   }
 }
 
