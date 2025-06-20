@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
 import 'package:movies_flutter/_core/constants/nav_icons.dart';
+import 'package:movies_flutter/_resources/common_state_holders/nav_screen_sh/cubit/nav_screen_cubit.dart';
 import 'package:movies_flutter/feat/browse/presentation/screens/browse_screen.dart';
+import 'package:movies_flutter/feat/home/presentation/screens/home_screen.dart';
 import 'package:movies_flutter/feat/profile/presentation/screens/profile_tap.dart';
 import 'package:movies_flutter/feat/search/presentation/screens/search_screen.dart';
 
@@ -15,12 +18,8 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   // double screenWidth = MediaQuery.sizeOf(context).width;
 
-  // TODO: for now and change it later to home screen
-  late Widget contentScreen;
-
-  // TODO: adding screens when finished
   Map<String, Widget> iconsScreenMap = {
-    Navicons.home: SearchScreen(),
+    Navicons.home: HomeScreen(),
     Navicons.search: SearchScreen(),
     Navicons.browse: BrowseScreen(),
     Navicons.profile: ProfileTap(),
@@ -28,16 +27,22 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   void initState() {
-    contentScreen = iconsScreenMap[Navicons.home]!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-        child: Stack(children: [contentScreen, buildFloatedNavBar()]),
+    return BlocProvider(
+      create: (context) => NavScreenCubit(),
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+          child: BlocBuilder<NavScreenCubit, Widget>(
+            builder: (context, state) {
+              return Stack(children: [state, buildFloatedNavBar()]);
+            },
+          ),
+        ),
       ),
     );
   }
@@ -68,21 +73,27 @@ class _NavScreenState extends State<NavScreen> {
   }
 
   Widget iconItem(MapEntry<String, Widget> e) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          contentScreen = e.value;
-        });
+    return BlocBuilder<NavScreenCubit, Widget>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: () {
+            setState(() {
+              context.read<NavScreenCubit>().changeScreen(e.value);
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ImageIcon(
+              AssetImage(e.key),
+              color:
+                  (state.runtimeType == e.value.runtimeType)
+                      ? ColorsApp.yellow
+                      : ColorsApp.white,
+              size: 24,
+            ),
+          ),
+        );
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: ImageIcon(
-          AssetImage(e.key),
-          color:
-              (contentScreen == e.value) ? ColorsApp.yellow : ColorsApp.white,
-          size: 24,
-        ),
-      ),
     );
   }
 }

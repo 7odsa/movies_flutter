@@ -3,7 +3,7 @@
     "password": "كلمة المرور",
     "forget_password": "نسيت كلمة المرور",
     "login": "تسجيل الدخول",
-    "don't_have_account": "ليس لديك حساب؟",
+    "dont_have_account": "ليس لديك حساب؟",
     "create_one": "إنشاء حساب",
     "login_with_google": "تسجيل الدخول باستخدام جوجل",
     "explore_now": "استكشف الآن",
@@ -11,11 +11,11 @@
     "back": "رجوع",
     "finish": "إنهاء",
     "watch": "مشاهدة",
-    "screen_shots": "لقطات الشاشة",
-    "similar": "متشابه",
+    "screenshots": "لقطات الشاشة",
+    "similar": "شاهد ايضاٌ",
     "summary": "ملخص",
     "cast": "طاقم التمثيل",
-    "genres": "الأنواع",
+    "genres": "الفئات",
     "edit_profile": "تعديل الملف الشخصي",
     "exit": "خروج",
     "watch_list": "قائمة المشاهدة",
@@ -54,5 +54,7 @@
     "mystery": "غموض",
     "romance": "رومانسي",
     "sci_fi": "خيال علمي",
-    "western": "غربي"
+    "western": "غربي",
+    "movieDetails": "تفاصيل الفيلم",
+    "min": "د"
 }

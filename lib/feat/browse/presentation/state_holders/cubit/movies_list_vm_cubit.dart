@@ -8,15 +8,15 @@ import 'package:movies_flutter/common/movies_list/models/movie.dart';
 part 'movies_list_vm_state.dart';
 
 class BrowseVmCubit extends Cubit<StateUi<List<MovieDM>?, String?>> {
-  BrowseVmCubit({required this.browseRepo}) : super(LoadingState());
-  final MoviesListRepo browseRepo;
+  BrowseVmCubit({required this.repo}) : super(LoadingState());
+  final MoviesListRepo repo;
   Future<void> getMoviesList({
     required int page,
     String? genre,
     required int limit,
   }) async {
     emit(LoadingState());
-    final result = await browseRepo.getListOfMovies(
+    final result = await repo.getListOfMovies(
       page: page,
       genre: genre,
       limit: limit,
