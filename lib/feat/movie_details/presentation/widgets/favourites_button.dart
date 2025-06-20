@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_resources/state_ui.dart';
@@ -48,15 +46,15 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               setState(() {
                 (state.data ?? false)
                     ? profileCubit.removeFavorite(
-                      movieId: widget.movie.id.toString(),
-                    )
+                        movieId: widget.movie.id.toString(),
+                      )
                     : profileCubit.addFavorite(
-                      movieId: widget.movie.id.toString(),
-                      imageUrl: widget.movie.image,
-                      name: widget.movie.title,
-                      rating: widget.movie.rating,
-                      year: widget.movie.year,
-                    );
+                        movieId: widget.movie.id.toString(),
+                        imageUrl: widget.movie.image,
+                        name: widget.movie.title,
+                        rating: widget.movie.rating,
+                        year: widget.movie.year,
+                      );
               });
 
               // !!! context.read<all_fav.ProfileCubit>().getFavoriteMovies();
