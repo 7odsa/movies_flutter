@@ -24,4 +24,32 @@ class AuthRepo {
       return DataFailed(e.toString());
     }
   }
+
+  Future<DataState<bool>> deleteAccount() async {
+    try {
+      final result = await authRemoteDS.deleteAccount();
+      return result;
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
+
+  Future<DataState<bool>> updateAccount({
+    required String name,
+    required String email,
+    required String phone,
+    required int avataId,
+  }) async {
+    try {
+      final result = await authRemoteDS.updateProfile(
+        name: name,
+        email: email,
+        phone: phone,
+        avatarId: avataId,
+      );
+      return result;
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
 }

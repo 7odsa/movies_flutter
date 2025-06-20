@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_flutter/_core/constants/app_routs.dart';
 import 'package:movies_flutter/_core/constants/app_style.dart';
 import 'package:movies_flutter/_core/constants/colors.dart';
+import 'package:movies_flutter/feat/auth/presentation/update_profile.dart';
 import 'package:movies_flutter/feat/profile/presentation/providers/profile_provider.dart';
 import 'package:movies_flutter/feat/profile/presentation/widgets/custom_elevated_buttom.dart';
 import 'package:provider/provider.dart';
@@ -167,7 +168,10 @@ class _ProfileTapState extends State<ProfileTap>
     horizontal: 26,
     vertical: 12,
     onClick: () async {
-      await Navigator.push(context, AppRouts.updateProfile());
+      await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UpdateProfile()),
+      );
     },
     text: 'Edit Profile',
     textStyle: TextStyle(

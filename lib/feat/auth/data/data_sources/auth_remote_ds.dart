@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:movies_flutter/_resources/data_state.dart';
+import 'package:movies_flutter/_resources/helpers/shared_prefs.dart';
 import 'package:movies_flutter/feat/auth/data/models/user.dart';
 
 import 'package:http/http.dart' as http;
@@ -85,8 +86,7 @@ class AuthRemoteDS {
     }
   }
 
-  Future<DataState<String>> updateProfile({
-    required String token,
+  Future<DataState<bool>> updateProfile({
     required String phone,
     required String name,
     required String email,
@@ -101,6 +101,7 @@ class AuthRemoteDS {
         'avaterId': avatarId,
       });
       final url = Uri.https(_authBaseUrl, 'profile');
+      final token = SharedPrefs.getUserToken();
 
       final response = await http.patch(
         url,
@@ -116,7 +117,7 @@ class AuthRemoteDS {
       }
       final json = jsonDecode(response.body);
       print(json['data']);
-      return DataSuccess((json['data']));
+      return DataSuccess((true));
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -142,6 +143,28 @@ class AuthRemoteDS {
       return DataSuccess(
         UserDm.fromJson((json['data'] as Map<String, dynamic>)),
       );
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
+
+  Future deleteAccount() async {
+    try {
+      final url = Uri.https(_authBaseUrl, 'profile');
+      final token = SharedPrefs.getUserToken();
+      final response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        return DataFailed('Something Went Wrong');
+      }
+      final json = jsonDecode(response.body);
+      return DataSuccess(true);
     } catch (e) {
       return DataFailed(e.toString());
     }
