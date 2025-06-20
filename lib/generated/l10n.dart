@@ -79,7 +79,15 @@ class S {
     return Intl.message('Login', name: 'login', desc: '', args: []);
   }
 
-  // skipped getter for the 'don\'t_have_account' key
+  /// `Don't have Account?`
+  String get dont_have_account {
+    return Intl.message(
+      'Don\'t have Account?',
+      name: 'dont_have_account',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Create One`
   String get create_one {
@@ -122,10 +130,10 @@ class S {
   }
 
   /// `Screen Shots`
-  String get screen_shots {
+  String get screenshots {
     return Intl.message(
       'Screen Shots',
-      name: 'screen_shots',
+      name: 'screenshots',
       desc: '',
       args: [],
     );
@@ -294,6 +302,116 @@ class S {
   /// `Pick Avatar`
   String get pick_avatar {
     return Intl.message('Pick Avatar', name: 'pick_avatar', desc: '', args: []);
+  }
+
+  /// `Action`
+  String get action {
+    return Intl.message('Action', name: 'action', desc: '', args: []);
+  }
+
+  /// `Adventure`
+  String get adventure {
+    return Intl.message('Adventure', name: 'adventure', desc: '', args: []);
+  }
+
+  /// `Animation`
+  String get animation {
+    return Intl.message('Animation', name: 'animation', desc: '', args: []);
+  }
+
+  /// `Anime`
+  String get anime {
+    return Intl.message('Anime', name: 'anime', desc: '', args: []);
+  }
+
+  /// `Comedy`
+  String get comedy {
+    return Intl.message('Comedy', name: 'comedy', desc: '', args: []);
+  }
+
+  /// `Crime`
+  String get crime {
+    return Intl.message('Crime', name: 'crime', desc: '', args: []);
+  }
+
+  /// `Documentary`
+  String get documentary {
+    return Intl.message('Documentary', name: 'documentary', desc: '', args: []);
+  }
+
+  /// `Drama`
+  String get drama {
+    return Intl.message('Drama', name: 'drama', desc: '', args: []);
+  }
+
+  /// `Family`
+  String get family {
+    return Intl.message('Family', name: 'family', desc: '', args: []);
+  }
+
+  /// `Fantasy`
+  String get fantasy {
+    return Intl.message('Fantasy', name: 'fantasy', desc: '', args: []);
+  }
+
+  /// `Sport`
+  String get sport {
+    return Intl.message('Sport', name: 'sport', desc: '', args: []);
+  }
+
+  /// `Horror`
+  String get horror {
+    return Intl.message('Horror', name: 'horror', desc: '', args: []);
+  }
+
+  /// `Music`
+  String get music {
+    return Intl.message('Music', name: 'music', desc: '', args: []);
+  }
+
+  /// `Thriller`
+  String get thriller {
+    return Intl.message('Thriller', name: 'thriller', desc: '', args: []);
+  }
+
+  /// `Musical`
+  String get musical {
+    return Intl.message('Musical', name: 'musical', desc: '', args: []);
+  }
+
+  /// `Mystery`
+  String get mystery {
+    return Intl.message('Mystery', name: 'mystery', desc: '', args: []);
+  }
+
+  /// `Romance`
+  String get romance {
+    return Intl.message('Romance', name: 'romance', desc: '', args: []);
+  }
+
+  /// `Sci-Fi`
+  String get sci_fi {
+    return Intl.message('Sci-Fi', name: 'sci_fi', desc: '', args: []);
+  }
+
+  /// `Western`
+  String get western {
+    return Intl.message('Western', name: 'western', desc: '', args: []);
+  }
+
+  /// `Movie Details`
+  String get movieDetails {
+    return Intl.message(
+      'Movie Details',
+      name: 'movieDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `min`
+  String get min {
+    return Intl.message('min', name: 'min', desc: '', args: []);
   }
 }
 

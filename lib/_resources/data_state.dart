@@ -1,8 +1,8 @@
 sealed class DataState<T> {
   final T? data;
-  final Exception? error;
+  final String? errorMsg;
 
-  DataState({this.data, this.error});
+  DataState({this.data, this.errorMsg});
 }
 
 class DataSuccess<T> extends DataState<T> {
@@ -10,5 +10,5 @@ class DataSuccess<T> extends DataState<T> {
 }
 
 class DataFailed<T> extends DataState<T> {
-  DataFailed(Exception e) : super(error: e);
+  DataFailed(String e) : super(errorMsg: e);
 }

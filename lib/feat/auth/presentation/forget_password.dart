@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_flutter/generated/l10n.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -30,7 +31,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     },
                   ),
                   Text(
-                    'Forget Password',
+                    S.of(context).forget_password,
                     style: TextStyle(
                       color: Color(0xffF6BD00),
                       fontSize: 20,
@@ -53,7 +54,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   prefixIcon: const Icon(Icons.email),
-                  hintText: 'Email',
+                  hintText: S.of(context).email,
                 ),
               ),
               const SizedBox(height: 16),
@@ -67,7 +68,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   padding: EdgeInsets.all(15),
                 ),
-                child: Text('Verify Account', style: TextStyle(fontSize: 20)),
+                child: Text(
+                  S.of(context).verify_email,
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ],
           ),
