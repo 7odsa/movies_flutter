@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_flutter/feat/movie_details/presentation/state_holders/cubit/profile_cubit.dart';
 import 'package:movies_flutter/feat/movie_details/presentation/widgets/favourites_button.dart'
     show FavoriteButton;
 import 'package:movies_flutter/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../state_holders/Bloc.dart';
-
-import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart'
-    as all_fav;
 
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_flutter/_resources/state_ui.dart';
 import 'package:movies_flutter/feat/movie_details/data/models/MovieDetailsModel.dart';
-import 'package:movies_flutter/feat/movie_details/presentation/state_holders/cubit/profile_cubit.dart';
+import 'package:movies_flutter/feat/movie_details/presentation/state_holders/cubit/favourite_cubit.dart';
 import 'package:movies_flutter/feat/profile/data/data_sources/profile_remote_ds.dart';
 import 'package:movies_flutter/feat/profile/data/repos/profile_repo.dart';
-
-import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart'
-    as all_fav;
+import 'package:movies_flutter/feat/profile/presentation/state_holders/cubit/profile_cubit.dart';
 
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({super.key, required this.movie});
@@ -18,7 +16,7 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool isFavorite = false;
-  ProfileCubit profileCubit = ProfileCubit(
+  FavouriteCubit profileCubit = FavouriteCubit(
     ProfileRepo(profileRemoteDs: ProfileRemoteDs()),
   );
 
@@ -30,7 +28,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, StateUi<bool, String>>(
+    return BlocBuilder<FavouriteCubit, StateUi<bool, String>>(
       bloc: profileCubit,
       builder: (context, state) {
         if (state is ErrorState) {
@@ -46,18 +44,18 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               setState(() {
                 (state.data ?? false)
                     ? profileCubit.removeFavorite(
-                        movieId: widget.movie.id.toString(),
-                      )
+                      movieId: widget.movie.id.toString(),
+                    )
                     : profileCubit.addFavorite(
-                        movieId: widget.movie.id.toString(),
-                        imageUrl: widget.movie.image,
-                        name: widget.movie.title,
-                        rating: widget.movie.rating,
-                        year: widget.movie.year,
-                      );
+                      movieId: widget.movie.id.toString(),
+                      imageUrl: widget.movie.image,
+                      name: widget.movie.title,
+                      rating: widget.movie.rating,
+                      year: widget.movie.year,
+                    );
               });
 
-              // !!! context.read<all_fav.ProfileCubit>().getFavoriteMovies();
+              context.read<ProfileCubit>().getFavoriteMovies();
             },
           );
         }

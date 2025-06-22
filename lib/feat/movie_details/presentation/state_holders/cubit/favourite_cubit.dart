@@ -5,9 +5,9 @@ import 'package:movies_flutter/feat/profile/data/repos/profile_repo.dart';
 
 part 'profile_state.dart';
 
-class ProfileCubit extends Cubit<StateUi<bool, String>> {
+class FavouriteCubit extends Cubit<StateUi<bool, String>> {
   final ProfileRepo profileRepo;
-  ProfileCubit(this.profileRepo) : super(LoadingState());
+  FavouriteCubit(this.profileRepo) : super(LoadingState());
 
   void isFavorite(String movieId) async {
     emit(LoadingState());

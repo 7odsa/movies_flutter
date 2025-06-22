@@ -1,4 +1,4 @@
-part of 'profile_cubit.dart';
+part of 'favourite_cubit.dart';
 
 sealed class ProfileState extends Equatable {
   const ProfileState();
